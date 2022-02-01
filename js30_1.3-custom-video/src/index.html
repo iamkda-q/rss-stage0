@@ -6,30 +6,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My custom videoplayer</title>
   <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="./index.css">
 </head>
 <body class="page">
-  <header class="header">
+  <header class="header page_settings">
     <h1 class="header__title">Video</h1>
   </header>
 
-  <main class="main">
+  <main class="main page_settings">
     <section class="videoplayer">
-      <video src="../assets/video/video.mp4" poster="../assets/images/poster.jpg" controls></video>
+      <video src="../assets/video/video.mp4"  class="video" controls></video> <!-- poster="../assets/images/poster.jpg" -->
     </section>
   </main>
 
-  <footer class="footer">
-    <ul class="footer__list-logo">
-      <li class="footer__logo">&copy;</li>
-      <li class="footer__logo">2022</li>
-      <li class="footer__logo">
-        <a href="" class="footer__link">github</a>
-        <a href="https://rs.school/js-stage0/" class="footer__link" target="blank">
-          <img src="https://rs.school/images/rs_school_js.svg" alt="Rolling Scopes School" class="footer__logo">
-        </a>
-      </li>
-      <li class="footer__logo"></li>
-    </ul>
+  <footer class="footer page_settings">
+    <nav>
+      <ul class="footer__list-logo">
+        <li>
+          <address class="footer__copyright">&copy;2022. Коннов Дмитрий</address>
+        </li>
+        <li class="footer__github">
+          <a href="https://github.com/iamkda-q" class="footer__github" target="blank">My github</a>
+        </li>
+        <li class="footer__logo">
+          <a href="https://rs.school/js-stage0/" class="footer__link" target="blank">
+            <img src="https://rs.school/images/rs_school_js.svg" alt="Rolling Scopes School" class="footer__logo">
+          </a>
+        </li>
+      </ul>
+    </nav>
   </footer>
 </body>
 </html>
