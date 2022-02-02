@@ -1,0 +1,16 @@
+.footer__github {
+  text-decoration: none;
+  font-family: "Quintessential", sans-serif;
+  font-weight: normal;
+  font-size: 28px;
+  font-style: italic;
+  color: inherit;
+  margin-left: 20px;
+}
+
+@media screen and (max-width: 1100px) {
+  .footer__github {
+    font-size: 18px;
+    margin-left: 10px;
+  }
+}

@@ -1,0 +1,16 @@
+.videoplayer__button_type_play {
+  width: 200px;
+  height: 200px;
+  background-image: url("../../../../../assets/svg/play-btn.svg");
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
+}
+
+@media screen and (max-width: 1420px) {
+  .videoplayer__button_type_play {
+    width: 14vw;
+    height: 14vw;
+    top: calc(50% - 7vw);
+    left: calc(50% - 7vw);
+  }
+}

@@ -1,0 +1,7 @@
+.videoplayer {
+  background-image: url("../../../assets/images/poster.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+/*   z-index: 2; */
+}
