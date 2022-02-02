@@ -6,6 +6,10 @@
   left: calc(50% - 50px);
 }
 
+.videoplayer__button_type_pause:hover {
+  transform: scale(1.2);
+}
+
 @media screen and (max-width: 1420px) {
   .videoplayer__button_type_pause {
     width: 8vw;

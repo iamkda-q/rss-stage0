@@ -13,7 +13,6 @@
 @import url(./blocks/videoplayer/__button/videoplayer__button.css);
 @import url(./blocks/videoplayer/__button/_type/videoplayer__button_type_play.css);
 @import url(./blocks/videoplayer/__button/_type/videoplayer__button_type_pause.css);
-@import url(./blocks/videoplayer/__button/_hover/videoplayer__button_hover_scale.css);
 
 
 /* @import url(./blocks/videoplayer/); */

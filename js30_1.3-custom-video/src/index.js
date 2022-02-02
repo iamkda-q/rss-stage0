@@ -1,5 +1,6 @@
-const playButton = document.querySelector(".videoplayer__button");
-const video = document.querySelector(".videoplayer__video");
+const videoPlayer = document.querySelector(".videoplayer");
+const playButton = videoPlayer.querySelector(".videoplayer__button");
+const video = videoPlayer.querySelector(".videoplayer__video");
 
 const playStopVideo = () => {
   if (video.paused) {
@@ -15,20 +16,19 @@ const makePauseBtnVisible = () => {
   }
 };
 
-video.addEventListener("mousemove", () => {
+videoPlayer.addEventListener("mousemove", () => {
   makePauseBtnVisible();
   timeCounter = Date.now();
   video.style.cursor = "default";
 });
 
-video.addEventListener("mouseout", () => {
+videoPlayer.addEventListener("mouseout", () => {
   if (!video.paused) {
     playButton.style.visibility = "hidden";
   }
 });
 
-video.addEventListener("click", playStopVideo);
-playButton.addEventListener("click", playStopVideo);
+videoPlayer.addEventListener("click", playStopVideo);
 
 video.addEventListener("play", () => {
   playButton.classList.remove("videoplayer__button_type_play");
@@ -51,14 +51,7 @@ setInterval(() => {
   }
 }, 99)
 
-playButton.addEventListener("mousemove", (evt) => {
-  evt.target.classList.add("videoplayer__button_hover_scale");
-  makePauseBtnVisible();
-});
 
-playButton.addEventListener("mouseout", (evt) => {
-  evt.target.classList.remove("videoplayer__button_hover_scale");
-});
 
 
 
