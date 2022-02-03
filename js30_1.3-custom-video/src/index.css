@@ -9,6 +9,7 @@
 
 /* Стили videoplayer */
 @import url(./blocks/videoplayer/videoplayer.css);
+@import url(./blocks/videoplayer/__poster/videoplayer__poster.css);
 @import url(./blocks/videoplayer/__video/videoplayer__video.css);
 @import url(./blocks/videoplayer/__button/videoplayer__button.css);
 @import url(./blocks/videoplayer/__button/_type/videoplayer__button_type_play.css);
@@ -23,6 +24,7 @@
 @import url(./blocks/videoplayer/__volume-reg/videoplayer__volume-reg.css);
 @import url(./blocks/videoplayer/__time/videoplayer__time.css);
 @import url(./blocks/videoplayer/__controls-button/_type/videoplayer__controls-button_type_fullscreen.css);
+@import url(./blocks/page/__hidden/page__hidden.css);
 
 
 /* @import url(./blocks/videoplayer/); */

@@ -1,4 +1,5 @@
 const videoPlayer = document.querySelector(".videoplayer");
+const videoPoster = document.querySelector(".videoplayer__poster");
 const centerPlayButton = videoPlayer.querySelector(".videoplayer__button");
 const video = videoPlayer.querySelector(".videoplayer__video");
 const progress = videoPlayer.querySelector(".videoplayer__progress-bar");
@@ -8,9 +9,10 @@ const playButton = videoPlayer.querySelector(".videoplayer__controls-button_type
 const volumeButton = videoPlayer.querySelector(".videoplayer__controls-button_type_volume");
 const volumeReg = videoPlayer.querySelector(".videoplayer__volume-reg");
 const fullscreen = videoPlayer.querySelector(".videoplayer__controls-button_type_fullscreen");
-/* videoTime.textContent = `00:00 / ${video.duration}s`; */
+
 video.volume = volumeReg.value;
 
+/* Чтобы видео не запускалось при кликах на панели управления */
 controls.addEventListener("click", (evt) => {
   evt.stopPropagation();
 });
@@ -49,7 +51,14 @@ videoPlayer.addEventListener("mouseout", (evt) => {
   }
 });
 
-videoPlayer.addEventListener("click", playStopVideo);
+videoPlayer.addEventListener("click", () => {
+  if (video.classList.contains("page__hidden")) {
+    video.classList.remove("page__hidden");
+    controls.classList.remove("page__hidden");
+    videoPoster.classList.add("page__hidden");
+  }
+  playStopVideo();
+});
 
 video.addEventListener("play", () => {
   changeClass(centerPlayButton, "videoplayer__button_type_pause", "videoplayer__button_type_play");
@@ -69,6 +78,8 @@ setInterval(() => {
   if (Date.now() - timeCounter >= timeCursorVisibility && centerPlayButton.classList.contains("videoplayer__button_type_pause")) {
     video.style.cursor = "none";
     centerPlayButton.style.visibility = "hidden";
+  } else if (centerPlayButton.classList.contains("videoplayer__button_type_play")) {
+    centerPlayButton.style.visibility = "visible";
   }
 }, 99)
 
@@ -76,7 +87,7 @@ video.addEventListener("timeupdate", () => {
   const currentTime = video.currentTime / video.duration * 100;
   progress.style.background = `linear-gradient(to right, rgba(180, 8, 8, 0.7) 0%, rgba(180, 8, 8, 0.7) ${currentTime}%, 
   rgba(95, 95, 95, 0.7) ${currentTime}%, rgba(95, 95, 95, 0.7) 100%)`;
-  videoTime.textContent = `${Math.ceil(video.currentTime)} / ${Math.ceil(video.duration)}`;
+  videoTime.textContent = `${calcTime(video.currentTime)} / ${calcTime(video.duration)}`;
 });
 
 const setCurrentTimeVideo = (evt) => {
@@ -95,11 +106,7 @@ progress.addEventListener("mousedown",() => {
   progress.addEventListener("mouseup", rem);
 });
 
-
-
-
 progress.addEventListener("click", setCurrentTimeVideo);
-
 
 /* const currentSec = video.currentTime; */
 
@@ -137,3 +144,22 @@ volumeReg.addEventListener("input", () => {
 fullscreen.addEventListener("click", () => {
   video.webkitEnterFullScreen();
 });
+
+function calcTime(sec) {
+  const currentSeconds = Math.round(sec) % 60;
+  const currentMinutes = (Math.round(sec) / 60 >= 1) ? Math.floor(Math.round(sec) / 60 % 60) : 0;
+  const currentHours = (Math.round(sec) / 3600 >= 1) ? Math.floor(Math.round(sec) / 3600 % 60) : 0;
+
+  const returnTextFormatTimeUnits = (timeUnits) => {
+    if (timeUnits < 10) {
+      return `0${timeUnits}`;
+    }
+    return `${timeUnits}`;
+  }
+  
+  const timeSeconds = returnTextFormatTimeUnits(currentSeconds);
+  const timeMinutes = returnTextFormatTimeUnits(currentMinutes);
+  const timeHours = returnTextFormatTimeUnits(currentHours);
+
+  return `${timeHours}:${timeMinutes}:${timeSeconds}`
+}

@@ -9,7 +9,8 @@
   height: 70%;
   align-self: center;
   justify-self: center;
-  transition: filter 0.4s linear;
+  transition: 0.2s linear;
+  cursor: pointer;
 }
 
 .videoplayer__controls-button:hover {
