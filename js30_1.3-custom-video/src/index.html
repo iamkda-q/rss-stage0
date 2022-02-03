@@ -18,11 +18,14 @@
   <main class="main page__settings">
     <section class="videoplayer">
       <video src="../assets/video/video.mp4"  class="videoplayer__video" ></video>
-      <button class="videoplayer__button videoplayer__button_type_play" type="button" ></button>
+      <button class="videoplayer__button videoplayer__button_type_play" type="button"></button>
       <div class="videoplayer__controls">
         <div class="videoplayer__progress-bar"></div>
-<!--         <button class="videoplayer__controls-button videoplayer__controls-button_type_play" type="button" ></button>
-        <button class="videoplayer__controls-button videoplayer__controls-button_type_volume" type="button" ></button> -->
+        <button class="videoplayer__controls-button videoplayer__controls-button_type_play" type="button"></button>
+        <button class="videoplayer__controls-button videoplayer__controls-button_type_volume" type="button"></button>
+        <input type="range" value="0.5" min="0" max="1" step="0.05" class="videoplayer__volume-reg videoplayer__volume-reg_invis">
+        <p class="videoplayer__time"></p>
+        <button class="videoplayer__controls-button videoplayer__controls-button_type_fullscreen" type="button"></button>
       </div>
     </section>
   </main>

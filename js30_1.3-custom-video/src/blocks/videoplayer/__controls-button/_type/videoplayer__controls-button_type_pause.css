@@ -1,0 +1,4 @@
+.videoplayer__controls-button_type_pause {
+  grid-area: play;
+  background-image: url(../../../../../assets/svg/pause.svg);
+}

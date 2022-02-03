@@ -1,0 +1,11 @@
+.videoplayer__volume-reg {
+  grid-area: volume-reg;
+  visibility: visible;
+  width: 200px;
+  transition: width 0.3s linear, visibility 0.3s linear;
+}
+
+.videoplayer__volume-reg_invis {
+  visibility: hidden;
+  width: 0;
+}

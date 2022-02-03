@@ -15,6 +15,14 @@
 @import url(./blocks/videoplayer/__button/_type/videoplayer__button_type_pause.css);
 @import url(./blocks/videoplayer/__controls/videoplayer__controls.css);
 @import url(./blocks/videoplayer/__progress-bar/videoplayer__progress-bar.css);
+@import url(./blocks/videoplayer/__controls-button/videoplayer__controls-button.css);
+@import url(./blocks/videoplayer/__controls-button/_type/videoplayer__controls-button_type_play.css);
+@import url(./blocks/videoplayer/__controls-button/_type/videoplayer__controls-button_type_pause.css);
+@import url(./blocks/videoplayer/__controls-button/_type/videoplayer__controls-button_type_volume.css);
+@import url(./blocks/videoplayer/__controls-button/_type/videoplayer__controls-button_type_mute.css);
+@import url(./blocks/videoplayer/__volume-reg/videoplayer__volume-reg.css);
+@import url(./blocks/videoplayer/__time/videoplayer__time.css);
+@import url(./blocks/videoplayer/__controls-button/_type/videoplayer__controls-button_type_fullscreen.css);
 
 
 /* @import url(./blocks/videoplayer/); */

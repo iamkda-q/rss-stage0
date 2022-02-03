@@ -1,0 +1,4 @@
+.videoplayer__controls-button_type_volume {
+  grid-area: volume;
+  background-image: url("../../../../../assets/svg/volume.svg");
+}

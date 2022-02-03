@@ -1,10 +1,13 @@
 .videoplayer__controls {
   display: grid;
-  grid-template-columns: 1fr;
-  height: 20px;
+  grid-template-columns: repeat(2, 40px) min-content auto 40px;
+  grid-template-rows: 20px 40px;
+  grid-template-areas: 
+  "progress-bar progress-bar progress-bar progress-bar progress-bar"
+  "play volume volume-reg time fullscreen";
   width: 100%;
   position: absolute;
-  bottom: -12px;
-/*   transition: height 0.4s linear; */
+  bottom: -52px; 
   transition: transform 0.4s linear;
+  
 }

@@ -12,5 +12,5 @@
 }
 
 .videoplayer:hover .videoplayer__controls{
-  transform: translateY(-12px);
+  transform: translateY(-52px);
 }

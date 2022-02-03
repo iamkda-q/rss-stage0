@@ -4,6 +4,10 @@
   background-repeat: no-repeat;
   background-size: contain;
   position: absolute;
-  transition: transform 0.4s linear;
+  transition: transform 0.4s linear, filter 0.4s linear;
+}
+
+.videoplayer__button:hover {
+  filter: brightness(2);
 }
 

@@ -1,0 +1,9 @@
+.videoplayer__time {
+  margin: 0;
+  margin-left: 10px;
+  grid-area: time;
+  align-self: center;
+  justify-self: left;
+  color: rgb(216, 206, 193);
+/*   text-align: center; */
+} 
