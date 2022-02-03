@@ -1,6 +1,8 @@
 const videoPlayer = document.querySelector(".videoplayer");
 const playButton = videoPlayer.querySelector(".videoplayer__button");
 const video = videoPlayer.querySelector(".videoplayer__video");
+const progress = videoPlayer.querySelector(".videoplayer__progress-bar");
+
 
 const playStopVideo = () => {
   if (video.paused) {
@@ -51,7 +53,32 @@ setInterval(() => {
   }
 }, 99)
 
+video.addEventListener("timeupdate", () => {
+  const currentTime = video.currentTime / video.duration * 100;
+  progress.style.background = `linear-gradient(to right, rgba(180, 8, 8, 0.7) 0%, rgba(180, 8, 8, 0.7) ${currentTime}%, 
+  rgba(95, 95, 95, 0.7) ${currentTime}%, rgba(95, 95, 95, 0.7) 100%)`;
+});
 
+const setCurrentTimeVideo = (evt) => {
+  evt.stopPropagation();
+  video.currentTime = ((evt.clientX - videoPlayer.offsetLeft) / videoPlayer.offsetWidth) * video.duration;
+};
+
+const rem = (evt) => {
+  evt.stopPropagation();
+  progress.removeEventListener("mousemove", setCurrentTimeVideo);
+  progress.removeEventListener("mouseup", rem);
+  progress.removeEventListener("mouseout", rem);
+};
+
+progress.addEventListener("mousedown",(evt) => {
+  evt.stopPropagation();
+  progress.addEventListener("mousemove", setCurrentTimeVideo);
+  progress.addEventListener("mouseout", rem);
+  progress.addEventListener("mouseup", rem);
+});
+
+progress.addEventListener("click", setCurrentTimeVideo);
 
 
 

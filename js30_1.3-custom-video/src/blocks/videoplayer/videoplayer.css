@@ -1,11 +1,16 @@
 .videoplayer {
-  background-image: url("../../../assets/images/poster.jpg");
+/*   background-image: url("../../../assets/images/poster.jpg"); */
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+  overflow: hidden;
 /*   z-index: 2; */
 }
 
 .videoplayer:hover .videoplayer__button_type_play{
   transform: scale(1.2);
+}
+
+.videoplayer:hover .videoplayer__controls{
+  transform: translateY(-12px);
 }

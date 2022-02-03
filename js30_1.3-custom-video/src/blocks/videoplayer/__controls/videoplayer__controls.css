@@ -1,0 +1,10 @@
+.videoplayer__controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 20px;
+  width: 100%;
+  position: absolute;
+  bottom: -12px;
+/*   transition: height 0.4s linear; */
+  transition: transform 0.4s linear;
+}
