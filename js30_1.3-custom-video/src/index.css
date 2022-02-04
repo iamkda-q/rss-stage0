@@ -33,6 +33,8 @@
 @import url(./blocks/footer/__list-logo/footer__list-logo.css);
 @import url(./blocks/footer/__copyright/footer__copyright.css);
 @import url(./blocks/footer/__github/footer__github.css);
+@import url(./blocks/footer/__link/footer__link.css);
+@import url(./blocks/footer/__logo-cont/footer__logo-cont.css);
 @import url(./blocks/footer/__logo/footer__logo.css);
 
 

@@ -1,7 +1,4 @@
 .videoplayer {
-/*   background-image: url("../../../assets/images/poster.jpg");
-  background-repeat: no-repeat;
-  background-size: cover; */
   position: relative;
   overflow: hidden;
   transition: opacity 0.4s linear;
