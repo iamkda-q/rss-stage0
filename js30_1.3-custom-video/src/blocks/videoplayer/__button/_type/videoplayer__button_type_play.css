@@ -1,7 +1,7 @@
 .videoplayer__button_type_play {
   width: 200px;
   height: 200px;
-  background-image: url("../../../../../assets/svg/play-btn.svg");
+  background-image: url("../../../../../assets/images/play-btn.svg");
   top: calc(50% - 100px);
   left: calc(50% - 100px);
 }

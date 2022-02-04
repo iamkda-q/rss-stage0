@@ -1,7 +1,7 @@
 .videoplayer__button_type_pause {
   width: 100px;
   height: 100px;
-  background-image: url("../../../../../assets/svg/pause.svg");
+  background-image: url("../../../../../assets/images/pause.svg");
   top: calc(50% - 50px);
   left: calc(50% - 50px);
 }
