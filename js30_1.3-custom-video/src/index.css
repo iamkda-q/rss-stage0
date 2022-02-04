@@ -26,9 +26,6 @@
 @import url(./blocks/videoplayer/__controls-button/_type/videoplayer__controls-button_type_fullscreen.css);
 @import url(./blocks/page/__hidden/page__hidden.css);
 
-
-/* @import url(./blocks/videoplayer/); */
-
 /* Стили footer */
 @import url(./blocks/footer/__list-logo/footer__list-logo.css);
 @import url(./blocks/footer/__copyright/footer__copyright.css);
