@@ -7,8 +7,8 @@
   <meta name="author" content="Коннов Дмитрий">
   <meta name="description" content="Кастомный видеоплеер">
   <title>My custom videoplayer</title>
-  <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
-  <link rel="stylesheet" href="./index.css">
+  <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="./src/index.css">
 </head>
 <body class="page">
   <header class="header page__settings">
@@ -18,7 +18,7 @@
   <main class="main page__settings">
     <section class="videoplayer">
       <div class="videoplayer__poster"></div>
-      <video src="../assets/video/video.mp4"  class="videoplayer__video page__hidden" ></video>
+      <video src="./assets/video/video.mp4"  class="videoplayer__video page__hidden" ></video>
       <button class="videoplayer__button videoplayer__button_type_play" type="button"></button>
       <div class="videoplayer__controls page__hidden">
         <div class="videoplayer__progress-bar"></div>
@@ -48,6 +48,6 @@
       </ul>
     </nav>
   </footer>
-  <script type="module" src="./index.js"></script>
+  <script type="module" src="./src/index.js"></script>
 </body>
 </html>
