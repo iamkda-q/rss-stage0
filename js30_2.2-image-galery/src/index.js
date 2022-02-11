@@ -10,6 +10,13 @@ function createCard(cardLink) {
     gallery.append(galleryItem);
 }
 
+/* Функция очистки галереи */
+function clearGallery() {
+    while (gallery.lastChild) {
+        gallery.removeChild(gallery.lastChild);
+      }
+}
+
 initialCards.forEach((item) => {
     createCard(item.link);
 });
@@ -33,7 +40,7 @@ initialCards.forEach((item) => {
 // })
 
 // async function getPhoto() {
-//     const res = await fetch("https://api.unsplash.com/photos/?per_page=10", {
+//     const res = await fetch("https://api.unsplash.com/photos/?per_page=12", {
 //         method: "GET",
 //         headers: {
 //             'Accept-Version': 'v1',
@@ -46,22 +53,49 @@ initialCards.forEach((item) => {
 //     });
 // }
 
-let query;
-let color;
+/* let color; &color=${color} */
 
-async function findPhoto() {
-    const res = await fetch(`https://api.unsplash.com/search/photos/?per_page=10&query=${query}&color=${color}`, {
-        method: "GET",
-        headers: {
-            'Accept-Version': 'v1',
-            Authorization: 'Client-ID HR-ZoD9QKz8-G3XXQcDdXvDyZVQg_v4KD-7P86HhD5s',
-        },
-    });
+async function findPhoto(query) {
+    const res = await fetch(
+        `https://api.unsplash.com/search/photos/?per_page=12&query=${query}`,
+        {
+            method: "GET",
+            headers: {
+                "Accept-Version": "v1",
+                Authorization:
+                    "Client-ID HR-ZoD9QKz8-G3XXQcDdXvDyZVQg_v4KD-7P86HhD5s",
+            },
+        }
+    );
     const data = await res.json();
-    console.log(data.results);
+    clearGallery();
     data.results.forEach((photo) => {
         createCard(photo.urls.regular);
     });
 }
 
-/* findPhoto(); */
+const searchInput = document.forms["search__form"].elements["search__input"];
+
+searchInput.addEventListener("blur", (evt) => {
+    // событие blur происходит, когда фокус убирается с input
+    if (evt.target.value) {
+        evt.target.classList.add("search__input_with-text");
+    } else {
+        evt.target.classList.remove("search__input_with-text");
+    }
+});
+
+const searchButton = document.querySelector(".search__button");
+
+searchButton.addEventListener("click", (evt) => {
+    evt.preventDefault();
+    if (searchInput.value) {
+/*         findPhoto(searchInput.value)
+        searchInput.value = "";
+        searchInput.blur();
+        searchInput.classList.remove("search__input_with-text"); */
+
+    }
+});
+
+console.log();

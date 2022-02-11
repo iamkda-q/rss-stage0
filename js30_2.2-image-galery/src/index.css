@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 .page {
     max-width: 1920px;
     min-width: 768px;
@@ -26,7 +30,7 @@
 
 .gallery__list {
     margin: 0;
-    padding: 2%;
+    padding: 25px 0;
     display: grid;
     grid-template-columns: repeat(4, minmax(200px, 1fr));
     grid-template-rows: repeat(2, minmax(auto, 400px));
@@ -55,23 +59,83 @@
   box-shadow: 4px 4px 10px 4px rgb(56, 55, 55) ;
 }
 
-
-  
-
-
-
-  @media screen and (max-width: 1024px) {
-    .gallery__list {
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 14px;
-    }
+@media screen and (max-width: 1024px) {
+  .gallery__list {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 14px;
   }
-  
-  @media screen and (max-width: 768px) {
-    .gallery__list {
-      grid-template-columns: repeat(2, 1fr);
-      grid-gap: 16px;
-      padding: 88px 24px;
-    }
+}
+
+@media screen and (max-width: 768px) {
+  .gallery__list {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 16px;
+    padding: 88px 24px;
   }
+}
+
+
+.search__form {
+  --padding: 6px;
+  --font-size: 20px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  width: 250px;
+  position: relative;
+}
+
+.search__input {
+  border: none;
+  border-radius: 3px;
+  width: 100%;
+  outline: none;
+  line-height: 1.2;
+  font-size: var(--font-size);
+  padding: var(--padding) ;
+}
+
+.search__label {
+  position: absolute;
+  top: var(--padding);
+  left: var(--padding);
+  color: #0d1117;
+  pointer-events: none;
+  line-height: 1.2;
+  font-size: var(--font-size);
+  transition: top 0.3s linear, color 0.3s linear, font-size 0.3s linear;
+}
+
+.search__input:focus + .search__label,
+.search__input_with-text + .search__label {
+  top: -20px;
+  color: white;
+  font-size: 16px;
+}
+
+.search__button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-image: url("./images/search_black.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 3px;
+  transform: scale(-1, 1);
+  border-radius: 3px;
+  transition: transform 0.2s linear;
+}
+
+.search__button:hover {
+  transform: scale(-1.2, 1.2);
+}
+
+.search__button:active {
+  transform: scale(-1, 1);
+  transition: transform 0s;
+}
 
