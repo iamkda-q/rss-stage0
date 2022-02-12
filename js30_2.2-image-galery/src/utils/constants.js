@@ -34,30 +34,34 @@ const initialCards = [
   ];
 
   const ru = {
-    ".header__title" : "Галерея",
+    ".header__title" : "Галерея с API Unsplash",
+    ".search__input": "Например, котики...",
     ".search__input-label" : "Поиск фото",
     ".footer__copyright" : "2022 Коннов Дмитрий",
     ".footer__link" : "Мой github",
     ".buttons__text_en" : "Рус",
     ".buttons__text_ru" : "Англ",
-    ".buttons__text_light" : "Свет",
-    ".buttons__text_dark" : "Темн",
+    ".buttons__text_light" : "Ночь",
+    ".buttons__text_dark" : "День",
   };
 
   const en = {
-    ".header__title" : "Gallery",
+    ".header__title" : "Gallery with API Unsplash",
+    ".search__input": "For example, cats...",
     ".search__input-label" : "Photo search",
     ".footer__copyright" : "2022 Konnov Dmitriy",
     ".footer__link" : "My github",
-    ".buttons__text_en" : "Rus",
-    ".buttons__text_ru" : "En",
-    ".buttons__text_light" : "Light",
-    ".buttons__text_dark" : "Dark",
+    ".buttons__text_en" : "En",
+    ".buttons__text_ru" : "Rus",
+    ".buttons__text_light" : "Dark",
+    ".buttons__text_dark" : "Light",
   };
 
   const languages = {
     ru: ru,
     en: en,
   };
+
+  
 
   export {initialCards, languages};

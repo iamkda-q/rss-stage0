@@ -5,22 +5,28 @@ const BGEN = `linear-gradient(0deg, red 0%, red 10%, white 10%, white 20%, red 2
     red 40%, red 50%, white 50%, white 60%, red 60%, red 70%, white 70%, blue 100%)`;
 const DARK = "black";
 const LIGHT = "white";
-
+/* Галерея */
 const gallery = document.querySelector(".gallery__list");
 const galleryItemTemplate = document.querySelector("#gallery__item"); // template-разметка карточки
 const page = document.querySelector(".page");
-const texts = Array.from(document.querySelectorAll(".page__white-text"));
+/* Поиск */
 const forms = document.forms;
 const searchForm = forms["search__form"];
 const searchInput = searchForm.elements["search__input"];
-const searchButton = document.querySelector(".search__button");
-
+const clearButton = document.querySelector(".search__clear-button");
+/* Язык */
+const texts = Array.from(document.querySelectorAll(".page__white-text"));
 const langButton = document.querySelector(".buttons__button_lang");
 const langWrapper = document.querySelector(".buttons__wrapper_lang");
+/* Тема */
 const themeButton = document.querySelector(".buttons__button_theme");
 const themeWrapper = document.querySelector(".buttons__wrapper_theme");
-const textThemeButton = themeButton.querySelector(".buttons__text");
-const textThemeWrapper = themeWrapper.querySelector(".buttons__text");
+
+langButton.style.backgroundImage = BGEN; 
+langWrapper.style.backgroundImage = BGRU; 
+
+themeButton.style.backgroundColor = LIGHT; 
+themeWrapper.style.backgroundColor = DARK; 
 
 /* Отрисовка карточки */
 function renderCard(card) {
@@ -127,15 +133,33 @@ searchInput.addEventListener("focus", (evt) => {
     }
 });
 
-// function setEnterListener(evt) {
-//     if (evt.key === "Enter") {
-//         sendRequest();
-//     }
-// }
+function handleInputClear(btn, input) {
+    btn.classList.add("search__clear-button_hidden");
+    input.style.paddingLeft = "";
+}
 
+function handleInputFull(btn, input) {
+    btn.classList.remove("search__clear-button_hidden");
+    input.style.paddingLeft = "30px";
+}
 
+function clearInput(btn, input) {
+    input.value = "";
+    handleInputClear(btn, input);
+    input.focus();
+}
 
+searchInput.addEventListener("input", (evt) => {
+    if (evt.target.value) {
+        handleInputFull(clearButton , evt.target)
+    } else {
+        handleInputClear(clearButton , evt.target)
+    }
+});
 
+clearButton.addEventListener("click", (evt) => {
+    clearInput(evt.target, searchInput);
+});
 
 searchInput.addEventListener("blur", (evt) => {
     // событие blur происходит, когда фокус убирается с input
@@ -146,36 +170,26 @@ searchInput.addEventListener("blur", (evt) => {
         }
         label.classList.remove(`${evt.target.name}-label_shift`);
     }
-    
-
 });
 
 /* Фокус на строке поиска при загрузке страницы */
 searchInput.focus();
 
-
-
-
-
 searchForm.addEventListener("submit", handleSubmit);
-
-
-
-langButton.style.backgroundImage = BGEN; 
-langWrapper.style.backgroundImage = BGRU; 
-
-themeButton.style.backgroundColor = LIGHT; 
-themeWrapper.style.backgroundColor = DARK; 
-
-let currentLang = "ru";
 
 function setLang() {
     for (let selector in languages[currentLang]) {
-        document.querySelector(selector).textContent = languages[currentLang][selector];
+        const element = document.querySelector(selector);
+        if (element.placeholder) {
+            element.placeholder = languages[currentLang][selector];
+            continue;
+        }
+        element.textContent = languages[currentLang][selector];
     }
 }
 
 /* Простановка текстов при загрузке страницы */
+let currentLang = "ru";
 setLang();
 
 function changeLang() {
@@ -187,28 +201,32 @@ function changeLang() {
     setLang();
 }
 
-
 /* Смена языка */
 langButton.addEventListener("click", (evt) => {
-    const textButton = langButton.querySelector(".buttons__text");
-    const textWrapper = langWrapper.querySelector(".buttons__text");
-    [textButton.textContent, textWrapper.textContent] = [textWrapper.textContent, textButton.textContent];
-    [langButton.style.backgroundImage, langWrapper.style.backgroundImage] = [langWrapper.style.backgroundImage, langButton.style.backgroundImage];
     changeLang();
+    [langButton.style.backgroundImage, langWrapper.style.backgroundImage] = [langWrapper.style.backgroundImage, langButton.style.backgroundImage];
 });
 
-
-textThemeButton.style.color = DARK; 
-textThemeWrapper.style.color = LIGHT; 
-
+const header = document.querySelector(".header");
+const headerLogo = header.querySelector(".header__logo");
 
 /* Смена темы страницы */
 themeButton.addEventListener("click", (evt) => {
     /* Операции над кнопками смены цвета */
+    const textThemeButton = themeButton.querySelector(".buttons__text");
+    const textThemeWrapper = themeWrapper.querySelector(".buttons__text");
+    function toggleTextTheme(textElement) {
+        textElement.classList.toggle("buttons__text_dark");
+        textElement.classList.toggle("buttons__text_light");
+    }
     [textThemeButton.textContent, textThemeWrapper.textContent] = [textThemeWrapper.textContent, textThemeButton.textContent];
-    [textThemeButton.style.color, textThemeWrapper.style.color] = [textThemeWrapper.style.color, textThemeButton.style.color];
+    toggleTextTheme(textThemeButton);
+    toggleTextTheme(textThemeWrapper);
+    /* Кнопка и обертка меняются текстами */
     [themeButton.style.backgroundColor, themeWrapper.style.backgroundColor] = [themeWrapper.style.backgroundColor, themeButton.style.backgroundColor];
     page.classList.toggle("page_light");
+    header.classList.toggle("header_light");
+    headerLogo.classList.toggle("header__logo_light");
     texts.forEach(item => {
         item.classList.toggle("page__white-text");
     });
