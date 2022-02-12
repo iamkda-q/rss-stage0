@@ -136,8 +136,8 @@
   background-image: url("./images/search_black.svg");
   background-repeat: no-repeat;
   background-size: contain;
-  width: 25px;
-  height: 25px;
+  width: 26px;
+  height: 26px;
   position: absolute;
   right: 3px;
   transform: scale(-1, 1);
@@ -146,11 +146,11 @@
 }
 
 .search__button:hover {
-  transform: scale(-1, 1) rotateY(360deg);
+  transform: scale(-1, 1) rotateY(180deg);
 }
 
 .search__button:active {
-  transform: scale(-0.8, 0.8) rotateY(360deg);
+  transform: scale(-0.8, 0.8) rotateY(180deg);
   transition: transform 0s;
 }
 

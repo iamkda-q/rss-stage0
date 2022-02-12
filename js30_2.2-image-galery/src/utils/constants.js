@@ -33,4 +33,31 @@ const initialCards = [
     }
   ];
 
-  export default initialCards;
+  const ru = {
+    ".header__title" : "Галерея",
+    ".search__input-label" : "Поиск фото",
+    ".footer__copyright" : "2022 Коннов Дмитрий",
+    ".footer__link" : "Мой github",
+    ".buttons__text_en" : "Рус",
+    ".buttons__text_ru" : "Англ",
+    ".buttons__text_light" : "Свет",
+    ".buttons__text_dark" : "Темн",
+  };
+
+  const en = {
+    ".header__title" : "Gallery",
+    ".search__input-label" : "Photo search",
+    ".footer__copyright" : "2022 Konnov Dmitriy",
+    ".footer__link" : "My github",
+    ".buttons__text_en" : "Rus",
+    ".buttons__text_ru" : "En",
+    ".buttons__text_light" : "Light",
+    ".buttons__text_dark" : "Dark",
+  };
+
+  const languages = {
+    ru: ru,
+    en: en,
+  };
+
+  export {initialCards, languages};

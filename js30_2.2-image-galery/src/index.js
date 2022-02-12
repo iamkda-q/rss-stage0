@@ -1,4 +1,4 @@
-import initialCards from "./utils/constants.js";
+import {initialCards, languages} from "./utils/constants.js";
 /* Цвета для кнопок Lang и Theme */
 const BGRU = "linear-gradient(180deg, white 0%, white 33%, blue 33%, blue 66%, red 66%, red 100%)";
 const BGEN = `linear-gradient(0deg, red 0%, red 10%, white 10%, white 20%, red 20%, red 30%, white 30%, white 40%,
@@ -32,7 +32,7 @@ function createCard(cardLink) {
     const galleryItem = galleryItemTemplate.content.cloneNode(true);
     const galleryPhoto = galleryItem.querySelector(".gallery__photo");
     galleryPhoto.src = cardLink;
-    renderCard(galleryItem);
+    return galleryItem;
 }
 
 /* Очистка галереи */
@@ -43,13 +43,13 @@ function clearGallery() {
 }
 
 initialCards.forEach((item) => {
-    createCard(item.link);
+    renderCard(createCard(item.link));
 });
 initialCards.forEach((item) => {
-    createCard(item.link);
+    renderCard(createCard(item.link));
 });
 initialCards.forEach((item) => {
-    createCard(item.link);
+    renderCard(createCard(item.link));
 });
 
 // fetch("https://api.unsplash.com/photos/", { /* ?client_id=HR-ZoD9QKz8-G3XXQcDdXvDyZVQg_v4KD-7P86HhD5s */
@@ -63,7 +63,7 @@ initialCards.forEach((item) => {
 // .then(res => {
 //     console.log(res);
 //     res.forEach(photo => {
-//         createCard(photo.urls.regular)
+//         renderCard(createCard(photo.urls.regular))
 //     })
 // })
 // .catch(() => {
@@ -80,7 +80,7 @@ initialCards.forEach((item) => {
 //     });
 //     const data = await res.json();
 //     data.forEach((photo) => {
-//         createCard(photo.urls.regular);
+//         renderCard(createCard(photo.urls.regular));
 //     });
 // }
 
@@ -101,7 +101,7 @@ async function findPhoto(query) {
     const data = await res.json();
     clearGallery();
     data.results.forEach((photo) => {
-        createCard(photo.urls.regular);
+        renderCard(createCard(photo.urls.regular))
     });
 }
 
@@ -111,7 +111,6 @@ function handleSubmit(evt) {
         /*         findPhoto(searchInput.value)
                 searchInput.blur();
                 searchInput.classList.remove("search__input_with-text"); */
-                
                 searchInput.focus();
             }
 }
@@ -168,15 +167,34 @@ langWrapper.style.backgroundImage = BGRU;
 themeButton.style.backgroundColor = LIGHT; 
 themeWrapper.style.backgroundColor = DARK; 
 
+let currentLang = "ru";
+
+function setLang() {
+    for (let selector in languages[currentLang]) {
+        document.querySelector(selector).textContent = languages[currentLang][selector];
+    }
+}
+
+/* Простановка текстов при загрузке страницы */
+setLang();
+
+function changeLang() {
+    if (currentLang == "ru") {
+        currentLang = "en";
+    } else {
+        currentLang = "ru";
+    }
+    setLang();
+}
 
 
+/* Смена языка */
 langButton.addEventListener("click", (evt) => {
     const textButton = langButton.querySelector(".buttons__text");
     const textWrapper = langWrapper.querySelector(".buttons__text");
     [textButton.textContent, textWrapper.textContent] = [textWrapper.textContent, textButton.textContent];
     [langButton.style.backgroundImage, langWrapper.style.backgroundImage] = [langWrapper.style.backgroundImage, langButton.style.backgroundImage];
-
-
+    changeLang();
 });
 
 
@@ -186,6 +204,7 @@ textThemeWrapper.style.color = LIGHT;
 
 /* Смена темы страницы */
 themeButton.addEventListener("click", (evt) => {
+    /* Операции над кнопками смены цвета */
     [textThemeButton.textContent, textThemeWrapper.textContent] = [textThemeWrapper.textContent, textThemeButton.textContent];
     [textThemeButton.style.color, textThemeWrapper.style.color] = [textThemeWrapper.style.color, textThemeButton.style.color];
     [themeButton.style.backgroundColor, themeWrapper.style.backgroundColor] = [themeWrapper.style.backgroundColor, themeButton.style.backgroundColor];
@@ -206,8 +225,6 @@ themeButton.addEventListener("click", (evt) => {
     });
 
 });
-
-
 
 
 
