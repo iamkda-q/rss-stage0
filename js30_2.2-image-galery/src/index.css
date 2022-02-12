@@ -1,3 +1,11 @@
+/* Стили footer */
+@import url(./blocks/footer/__list-logo/footer__list-logo.css);
+@import url(./blocks/footer/__copyright/footer__copyright.css);
+@import url(./blocks/footer/__github/footer__github.css);
+@import url(./blocks/footer/__link/footer__link.css);
+@import url(./blocks/footer/__logo-cont/footer__logo-cont.css);
+@import url(./blocks/footer/__logo/footer__logo.css);
+
 *{
   box-sizing: border-box;
 }
@@ -9,12 +17,16 @@
     padding: 0;
     font-family: sans-serif;
     font-weight: normal;
-    color: white;
+    color: #0d1117;
     box-sizing: border-box;
     background-color: #0d1117;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+}
+
+.page__white-text {
+  color: white;
 }
 
 .page_light {
@@ -96,7 +108,7 @@
   box-shadow: #000 0 0 3px 0px;
 }
 
-.search__label {
+.search__input-label {
   position: absolute;
   top: var(--padding);
   left: var(--padding);
@@ -107,11 +119,14 @@
   transition: top 0.3s linear, color 0.3s linear, font-size 0.3s linear;
 }
 
-.search__input:focus + .search__label,
-.search__input_with-text + .search__label {
+.search__input-label_shift {
   top: -20px;
   color: white;
   font-size: 16px;
+}
+
+.search__input-label_dark {
+  color: #0d1117;
 }
 
 .search__button {
@@ -127,15 +142,15 @@
   right: 3px;
   transform: scale(-1, 1);
   border-radius: 3px;
-  transition: transform 0.2s linear;
+  transition: transform 0.4s linear;
 }
 
 .search__button:hover {
-  transform: scale(-1.2, 1.2);
+  transform: scale(-1, 1) rotateY(360deg);
 }
 
 .search__button:active {
-  transform: scale(-1, 1);
+  transform: scale(-0.8, 0.8) rotateY(360deg);
   transition: transform 0s;
 }
 
@@ -196,6 +211,7 @@
   display: flex;
   justify-content: start;
   align-items: flex-start;
+  cursor: pointer;
 }
 
 .buttons__button:last-of-type {
@@ -232,6 +248,5 @@
 .buttons__wrapper:first-of-type > .buttons__text {
   align-self: flex-end;
 }
-
 
 

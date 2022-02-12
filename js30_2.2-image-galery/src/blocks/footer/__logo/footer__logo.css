@@ -1,0 +1,10 @@
+.footer__logo {
+  width: 200px;
+  height: auto;
+}
+
+@media screen and (max-width: 1420px) {
+  .footer__logo {
+    width: 120px;
+  }
+}
