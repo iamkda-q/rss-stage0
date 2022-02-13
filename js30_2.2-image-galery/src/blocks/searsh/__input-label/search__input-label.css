@@ -1,0 +1,14 @@
+.search__input-label {
+    position: absolute;
+    top: var(--padding);
+    left: var(--padding);
+    color: #0d1117;
+    pointer-events: none;
+    line-height: 1.2;
+    font-size: var(--font-size);
+    transition: top 0.3s linear, color 0.3s linear, font-size 0.3s linear;
+}
+
+
+
+

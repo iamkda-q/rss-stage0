@@ -216,8 +216,8 @@ themeButton.addEventListener("click", (evt) => {
     const textThemeButton = themeButton.querySelector(".buttons__text");
     const textThemeWrapper = themeWrapper.querySelector(".buttons__text");
     function toggleTextTheme(textElement) {
-        textElement.classList.toggle("buttons__text_dark");
-        textElement.classList.toggle("buttons__text_light");
+        textElement.classList.toggle("buttons__text_color_dark");
+        textElement.classList.toggle("buttons__text_color_light");
     }
     [textThemeButton.textContent, textThemeWrapper.textContent] = [textThemeWrapper.textContent, textThemeButton.textContent];
     toggleTextTheme(textThemeButton);

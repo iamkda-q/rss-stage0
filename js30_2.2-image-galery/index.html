@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Коннов Дмитрий">
     <meta name="description" content="Фотогалерея через Unsplash API">
-    <title>Galery</title>
+    <title>Image gallery</title>
     <link rel="shortcut icon" href="./src/images/unsplash_dark.png" type="image/x-icon">
     <link rel="stylesheet" href="./src/index.css">
 </head>
@@ -25,16 +25,13 @@
                 <form class="search__form" name="search__form">
                     <input type="text" name="search__input" class="search__input" autocomplete="off" placeholder="Например, котики..."> 
                     <label class="search__input-label" ></label>
-                    <span class="search__input-error"></span>
                     <button type="submit" class="search__button"></button>
                     <button type="button" class="search__clear-button search__clear-button_hidden" aria-label></button>
                 </form>
             </section>
         
             <section class="gallery">
-                <ul class="gallery__list">
-
-                </ul>
+                <ul class="gallery__list"></ul>
             </section>
         </main>
 
@@ -66,10 +63,10 @@
             <p class="buttons__text buttons__text_en"></p>
         </div>
         <button type="button" class="buttons__button buttons__button_theme">
-            <p class="buttons__text buttons__text_dark"></p>
+            <p class="buttons__text buttons__text_color_dark"></p>
         </button>
         <div class="buttons__wrapper buttons__wrapper_theme">
-            <p class="buttons__text buttons__text_light"></p>
+            <p class="buttons__text buttons__text_color_light"></p>
         </div>
     </div>
 

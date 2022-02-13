@@ -1,0 +1,44 @@
+.search__clear-button {
+    --border-top: 2px solid rgba(13, 17, 23, 0.9);
+    --border-left: 12px solid rgba(13, 17, 23, 0.9);
+    padding: 0;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    border: none;
+    left: 3px;
+    background: none;
+    cursor: pointer;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.1s linear;
+}
+
+.search__clear-button::before,
+.search__clear-button::after {
+    content: "";
+    position: absolute;
+    bottom: calc(50% - 2px);
+    left: calc(50% - 12px);
+    border-top: var(--border-top);
+    border-right: var(--border-left);
+    border-bottom: var(--border-top);
+    border-left: var(--border-left);
+}
+
+.search__clear-button::before {
+    transform: rotate(-45deg);
+}
+
+.search__clear-button::after {
+    transform: rotate(45deg);
+}
+
+.search__clear-button:hover {
+    opacity: 0.8;
+}
+
+.search__clear-button:active {
+    transform: scale(-0.8, 0.8) rotateY(180deg);
+    transition: transform 0s;
+}

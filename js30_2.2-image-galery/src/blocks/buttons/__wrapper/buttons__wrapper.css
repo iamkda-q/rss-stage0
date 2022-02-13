@@ -1,0 +1,19 @@
+.buttons__wrapper {
+    background-color: white;
+    transition: transform 0.3s linear;
+    z-index: 1;
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+    box-shadow: #000 0 0 10px 0px;
+}
+
+.buttons__wrapper:last-of-type {
+    grid-area: button2;
+    border-bottom-right-radius: 60px;
+}
+
+.buttons__wrapper:first-of-type {
+    grid-area: button1;
+    border-top-right-radius: 60px;
+}

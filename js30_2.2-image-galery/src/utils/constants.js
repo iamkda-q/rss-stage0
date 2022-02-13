@@ -41,8 +41,8 @@ const initialCards = [
     ".footer__link" : "Мой github",
     ".buttons__text_en" : "Рус",
     ".buttons__text_ru" : "Англ",
-    ".buttons__text_light" : "Ночь",
-    ".buttons__text_dark" : "День",
+    ".buttons__text_color_light" : "Ночь",
+    ".buttons__text_color_dark" : "День",
   };
 
   const en = {
@@ -53,8 +53,8 @@ const initialCards = [
     ".footer__link" : "My github",
     ".buttons__text_en" : "En",
     ".buttons__text_ru" : "Rus",
-    ".buttons__text_light" : "Dark",
-    ".buttons__text_dark" : "Light",
+    ".buttons__text_color_light" : "Dark",
+    ".buttons__text_color_dark" : "Light",
   };
 
   const languages = {
