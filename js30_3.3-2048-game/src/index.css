@@ -1,0 +1,26 @@
+/* page */
+@import url(./blocks/page/page.css);
+@import url(./blocks/page/__container/page__container.css);
+
+/* header */
+@import url(./blocks/header/header.css);
+@import url(./blocks/header/__title/header__title.css);
+
+/* game-zone */
+@import url(./blocks/board/board.css);
+@import url(./blocks/board/__number/board__number.css);
+/* @import url(./blocks/);
+@import url(./blocks/);
+@import url(./blocks/); */
+
+/* controls */
+
+
+/* footer */
+@import url(./blocks/footer/__list-logo/footer__list-logo.css);
+@import url(./blocks/footer/__copyright/footer__copyright.css);
+@import url(./blocks/footer/__github/footer__github.css);
+@import url(./blocks/footer/__link/footer__link.css);
+@import url(./blocks/footer/__logo-cont/footer__logo-cont.css);
+@import url(./blocks/footer/__logo/footer__logo.css);
+

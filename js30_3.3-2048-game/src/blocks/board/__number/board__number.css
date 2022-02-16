@@ -1,0 +1,14 @@
+.board__number {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    background-color: bisque;
+
+    border: 1px red solid;
+
+}
