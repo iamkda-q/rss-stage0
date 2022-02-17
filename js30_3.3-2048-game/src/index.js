@@ -59,60 +59,56 @@ function addNewNumbers() {
     gameMatrix[rowIndex][colIndex] = 2;
 }
 
-function translateLeft(mas) {
+function translateLeft() {
+    const newMatrix = returnZeroMatrix();
     for (let i = 0; i < rowLength; i++) {
         let newColIndex = 0;
         for (let j = 0; j < rowLength; j++) {
-            if (mas[i][j]) {
-                mas[i][newColIndex++] = mas[i][j];
-                if (j) {
-                    mas[i][j] = 0;
-                }
+            if (gameMatrix[i][j]) {
+                newMatrix[i][newColIndex++] = gameMatrix[i][j];
             }
         }
     }
+    return newMatrix;
 }
 
-function translateRight(mas) {
+function translateRight() {
+    const newMatrix = returnZeroMatrix();
     for (let i = 0; i < rowLength; i++) {
         let newColIndex = rowLength - 1;
         for (let j = rowLength - 1; j >= 0; j--) {
-            if (mas[i][j]) {
-                mas[i][newColIndex--] = mas[i][j];
-                if (j != rowLength - 1) {
-                    mas[i][j] = 0;
-                }
+            if (gameMatrix[i][j]) {
+                newMatrix[i][newColIndex--] = gameMatrix[i][j];
             }
         }
     }
+    return newMatrix;
 }
 
-function translateTop(mas) {
+function translateTop() {
+    const newMatrix = returnZeroMatrix();
     for (let i = 0; i < rowLength; i++) {
         let newColIndex = 0;
         for (let j = 0; j < rowLength; j++) {
-            if (mas[j][i]) {
-                mas[newColIndex++][i] = mas[j][i];
-                if (j) {
-                    mas[j][i] = 0;
-                }
+            if (gameMatrix[j][i]) {
+                newMatrix[newColIndex++][i] = gameMatrix[j][i];
             }
         }
     }
+    return newMatrix;
 }
 
-function translateBottom(mas) {
+function translateBottom() {
+    const newMatrix = returnZeroMatrix();
     for (let i = 0; i < rowLength; i++) {
         let newColIndex = rowLength - 1;
         for (let j = rowLength - 1; j >= 0; j--) {
-            if (mas[j][i]) {
-                mas[newColIndex--][i] = mas[j][i];
-                if (j != rowLength - 1) {
-                    mas[j][i] = 0;
-                }
+            if (gameMatrix[j][i]) {
+                newMatrix[newColIndex--][i] = gameMatrix[j][i];
             }
         }
     }
+    return newMatrix;
 }
 
 function copyGameMatrix() {
@@ -125,59 +121,52 @@ function copyGameMatrix() {
     return newMatrix;
 }
 
-function toLeft() {
-    const newMatrix = copyGameMatrix();
-    translateLeft(newMatrix);
-    return newMatrix;
-}
-
-function toRight() {
-    const newMatrix = copyGameMatrix();
-    translateRight(newMatrix);
-    return newMatrix;
-}
-
-function toTop() {
-    const newMatrix = copyGameMatrix();
-    translateTop(newMatrix);
-    return newMatrix;
-}
-
-function toBottom() {
-    const newMatrix = copyGameMatrix();
-    translateBottom(newMatrix);
-    return newMatrix;
-}
-
 
 window.addEventListener("keyup", (e) => {
     if (e.key == "ArrowLeft" || e.key.toLowerCase() == "a") {
-        gameMatrix = toLeft();
+        gameMatrix = translateLeft();
+/*         gameMatrix = getSum(); */
         renderNumbers();
     }
 });
 
 window.addEventListener("keyup", (e) => {
     if (e.key == "ArrowRight" || e.key.toLowerCase() == "d") {
-        gameMatrix = toRight();
+        gameMatrix = translateRight();
         renderNumbers();
     }
 });
 
 window.addEventListener("keyup", (e) => {
     if (e.key == "ArrowUp" || e.key.toLowerCase() == "w") {
-        gameMatrix = toTop();
+        gameMatrix = translateTop();
         renderNumbers();
     }
 });
 
 window.addEventListener("keyup", (e) => {
     if (e.key == "ArrowDown" || e.key.toLowerCase() == "s") {
-        gameMatrix = toBottom();
+        gameMatrix = translateBottom();
         renderNumbers();
     }
 })
 
+function getSum() {
+    const newMatrix = copyGameMatrix();
+    for (let i = 0; i < rowLength; i++) {
+        let newColIndex = rowLength - 1;
+        for (let j = 0; j < rowLength - 1; j++) {
+            if (gameMatrix[i][j] && (gameMatrix[i][j] == gameMatrix[i][j + 1])) {
+                newMatrix[i][j] = gameMatrix[i][j] * 2;
+                newMatrix[i][j + 1] = 0;
+            }
+        }
+    }
+    return newMatrix;
+}
+
+addNewNumbers();
+addNewNumbers();
 addNewNumbers();
 addNewNumbers();
 
