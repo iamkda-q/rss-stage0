@@ -1,4 +1,4 @@
-function returnZeroMatrix() {
+function getZeroMatrix() {
     return [
         [0, 0, 0, 0],
         [0, 0, 0, 0],
@@ -7,7 +7,7 @@ function returnZeroMatrix() {
     ];
 }
 
-let gameMatrix = returnZeroMatrix();
+let gameMatrix = getZeroMatrix();
 const rowLength = gameMatrix.length;
 
 const numbers = document.querySelectorAll(".board__number");
@@ -35,11 +35,11 @@ function renderNumbers() {
 //     return [getRandom(), getRandom()];
 // }
 
-function isEmty(rowIndex, colIndex) {
+/* function isEmty(rowIndex, colIndex) {
     return !gameMatrix[rowIndex][colIndex] && true;
-}
+} */
 
-function getRandomPos() {
+function addNewNumbers() {
     let zeros = [];
     for (let i = 0; i < rowLength; i++) {
         for (let j = 0; j < rowLength; j++) {
@@ -48,45 +48,56 @@ function getRandomPos() {
             }
         }
     }
-    return zeros[Math.floor(Math.random() * zeros.length)].split("");
-}
 
-function addNewNumbers() {
-    let [rowIndex, colIndex] = getRandomPos();
-    while (!isEmty(rowIndex, colIndex)) {
-        [rowIndex, colIndex] = getRandomPos();
+    if (!zeros.length) {
+        return
     }
+
+    let [rowIndex, colIndex] = zeros[Math.floor(Math.random() * zeros.length)].split("");
     gameMatrix[rowIndex][colIndex] = 2;
 }
 
-function translateLeft() {
-    const newMatrix = returnZeroMatrix();
+function getMirrorMatrix(matrix) {
+    const newMatrix = getZeroMatrix();
+    for (let i = 0; i < rowLength; i++) {
+        for (let j = 0; j < rowLength; j++) {
+            newMatrix[i][j] = matrix[i][rowLength - 1 - j];
+        }
+    }
+    return newMatrix;
+}
+
+function getTransporMatrix(matrix) {
+    const newMatrix = getZeroMatrix();
+    for (let i = 0; i < rowLength; i++) {
+        for (let j = 0; j < rowLength; j++) {
+            newMatrix[i][j] = matrix[j][i];
+        }
+    }
+    return newMatrix;
+}
+
+function translateLeft(matrix) {
+    const newMatrix = getZeroMatrix();
     for (let i = 0; i < rowLength; i++) {
         let newColIndex = 0;
         for (let j = 0; j < rowLength; j++) {
-            if (gameMatrix[i][j]) {
-                newMatrix[i][newColIndex++] = gameMatrix[i][j];
+            if (matrix[i][j]) {
+                newMatrix[i][newColIndex++] = matrix[i][j];
             }
         }
     }
     return newMatrix;
 }
 
-function translateRight() {
-    const newMatrix = returnZeroMatrix();
-    for (let i = 0; i < rowLength; i++) {
-        let newColIndex = rowLength - 1;
-        for (let j = rowLength - 1; j >= 0; j--) {
-            if (gameMatrix[i][j]) {
-                newMatrix[i][newColIndex--] = gameMatrix[i][j];
-            }
-        }
-    }
-    return newMatrix;
-}
+/* function translateRight() {
+    const mirrorMatrix = getMirrorMatrix(gameMatrix);
+    const newMatrix = translateLeft(mirrorMatrix);
+    return getMirrorMatrix(newMatrix);
+} */
 
-function translateTop() {
-    const newMatrix = returnZeroMatrix();
+/* function translateTop() {
+    const newMatrix = getZeroMatrix();
     for (let i = 0; i < rowLength; i++) {
         let newColIndex = 0;
         for (let j = 0; j < rowLength; j++) {
@@ -99,7 +110,7 @@ function translateTop() {
 }
 
 function translateBottom() {
-    const newMatrix = returnZeroMatrix();
+    const newMatrix = getZeroMatrix();
     for (let i = 0; i < rowLength; i++) {
         let newColIndex = rowLength - 1;
         for (let j = rowLength - 1; j >= 0; j--) {
@@ -109,56 +120,104 @@ function translateBottom() {
         }
     }
     return newMatrix;
-}
+} */
 
-function copyGameMatrix() {
-    const newMatrix = returnZeroMatrix();
+let previousMatrix = getZeroMatrix();
+rememberMatrix();
+
+function rememberMatrix() {
     for (let i = 0; i < rowLength; i++) {
         for (let j = 0; j < rowLength; j++) {
-            newMatrix[i][j] = gameMatrix[i][j];
+            previousMatrix[i][j] = gameMatrix[i][j];
         }
     }
-    return newMatrix;
 }
 
-
-window.addEventListener("keyup", (e) => {
-    if (e.key == "ArrowLeft" || e.key.toLowerCase() == "a") {
-        gameMatrix = translateLeft();
-/*         gameMatrix = getSum(); */
-        renderNumbers();
-    }
-});
-
-window.addEventListener("keyup", (e) => {
-    if (e.key == "ArrowRight" || e.key.toLowerCase() == "d") {
-        gameMatrix = translateRight();
-        renderNumbers();
-    }
-});
-
-window.addEventListener("keyup", (e) => {
-    if (e.key == "ArrowUp" || e.key.toLowerCase() == "w") {
-        gameMatrix = translateTop();
-        renderNumbers();
-    }
-});
-
-window.addEventListener("keyup", (e) => {
-    if (e.key == "ArrowDown" || e.key.toLowerCase() == "s") {
-        gameMatrix = translateBottom();
-        renderNumbers();
-    }
-})
-
-function getSum() {
-    const newMatrix = copyGameMatrix();
+function isEqualMatrix() {
     for (let i = 0; i < rowLength; i++) {
-        let newColIndex = rowLength - 1;
-        for (let j = 0; j < rowLength - 1; j++) {
-            if (gameMatrix[i][j] && (gameMatrix[i][j] == gameMatrix[i][j + 1])) {
-                newMatrix[i][j] = gameMatrix[i][j] * 2;
-                newMatrix[i][j + 1] = 0;
+        for (let j = 0; j < rowLength; j++) {
+            if (previousMatrix[i][j] != gameMatrix[i][j]) {
+                return false
+            }
+        }
+    }
+    return true
+}
+
+window.addEventListener("keyup", (e) => {
+/*     debugger; */
+    if (e.key == "ArrowLeft" || e.key.toLowerCase() == "a") {
+        rememberMatrix();
+        gameMatrix = translateLeft(getSum(translateLeft(gameMatrix)));
+        if (!isEqualMatrix()) {
+            addNewNumbers();
+        }
+        renderNumbers();
+    }
+});
+
+window.addEventListener("keyup", (e) => {
+/*     debugger; */
+    if (e.key == "ArrowRight" || e.key.toLowerCase() == "d") {
+        rememberMatrix();
+        gameMatrix = getMirrorMatrix(
+            translateLeft(getSum(translateLeft(getMirrorMatrix(gameMatrix))))
+        );
+        if (!isEqualMatrix()) {
+            addNewNumbers();
+        }
+        renderNumbers();
+    }
+});
+
+window.addEventListener("keyup", (e) => {
+ /*    debugger; */
+    if (e.key == "ArrowUp" || e.key.toLowerCase() == "w") {
+        rememberMatrix();
+        gameMatrix = getTransporMatrix(
+            translateLeft(getSum(translateLeft(getTransporMatrix(gameMatrix))))
+        );
+        if (!isEqualMatrix()) {
+            addNewNumbers();
+        }
+        renderNumbers();
+    }
+});
+
+window.addEventListener("keyup", (e) => {
+/*     debugger; */
+    if (e.key == "ArrowDown" || e.key.toLowerCase() == "s") {
+        rememberMatrix();
+        gameMatrix = getTransporMatrix(
+            getMirrorMatrix(
+                translateLeft(
+                    getSum(
+                        translateLeft(
+                            getMirrorMatrix(getTransporMatrix(gameMatrix))
+                        )
+                    )
+                )
+            )
+        );
+
+        if (!isEqualMatrix()) {
+            addNewNumbers();
+        }
+        renderNumbers();
+    }
+});
+
+function getSum(matrix) {
+    const newMatrix = getZeroMatrix();
+    for (let i = 0; i < rowLength; i++) {
+        for (let j = 0; j < rowLength; j++) {
+            if (matrix[i][j]) {
+                if (matrix[i][j] == matrix[i][j + 1]) {
+                    newMatrix[i][j] = matrix[i][j] * 2;
+                    j++;
+                } else {
+                    newMatrix[i][j] = matrix[i][j];
+                }
             }
         }
     }
@@ -167,7 +226,5 @@ function getSum() {
 
 addNewNumbers();
 addNewNumbers();
-addNewNumbers();
-addNewNumbers();
-
-renderNumbers(gameMatrix);
+renderNumbers();
+rememberMatrix();
