@@ -2,13 +2,12 @@
     margin: 0;
     width: 100%;
     height: 100%;
-    border-radius: 10%;
+    border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 60px;
+    font-size: 36px;
     background-color: bisque;
-
     border: 1px red solid;
 
 }

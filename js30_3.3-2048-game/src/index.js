@@ -11,7 +11,18 @@ let gameMatrix = getZeroMatrix();
 const rowLength = gameMatrix.length;
 let previousMatrix = getZeroMatrix();
 const numbers = document.querySelectorAll(".board__number");
+const popup = document.querySelector(".board__popup");
+const buttonTryAgain = document.querySelector(".board__popup-button");
 let gameOver = false;
+
+function startNewGame() {
+    gameMatrix = getZeroMatrix();
+    gameOver = false;
+    addNewNumbers();
+    addNewNumbers();
+    renderNumbers();
+    rememberMatrix();
+}
 
 function renderNumbers() {
     let i = 0;
@@ -146,12 +157,18 @@ function isFull() {
     return true
 }
 
-function checkEndGame(m1, m2) {
+function checkEndGame() {
     if (isFull()) {
         console.log("Game Over");
         gameOver = !gameOver;
+        popup.classList.add("board__popup_visible");
     }
 }
+
+buttonTryAgain.addEventListener("click", (evt) => {
+    popup.classList.remove("board__popup_visible");
+    startNewGame();
+});
 
 window.addEventListener("keyup", (e) => {
     if (e.key == "ArrowLeft" || e.key.toLowerCase() == "a") {
@@ -219,8 +236,4 @@ window.addEventListener("keyup", (e) => {
     }
 });
 
-
-addNewNumbers();
-addNewNumbers();
-renderNumbers();
-rememberMatrix();
+startNewGame();

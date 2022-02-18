@@ -1,0 +1,9 @@
+.board__popup-text {
+    margin: 0;
+    margin-bottom: 50px;
+    padding: 0;
+    font-size: 100px;
+    line-height: 1;
+    color: #f1b48a;
+    font-style: italic;
+}

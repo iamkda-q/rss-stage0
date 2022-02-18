@@ -16,26 +16,33 @@
             <p class="header__title"> Всеми любимая 2048 </p>
         </header>
 
-        <main>
+        <main class="main">
+
             <section class="board">
-                <p class="board__number"></p>
-                <p class="board__number"></p>
-                <p class="board__number"></p>
-                <p class="board__number"></p>
-                <p class="board__number"></p>
-                <p class="board__number"></p>
-                <p class="board__number"></p>
-                <p class="board__number"></p>
-                <p class="board__number"></p>
-                <p class="board__number"></p>
-                <p class="board__number"></p>
-                <p class="board__number"></p>
-                <p class="board__number"></p>
-                <p class="board__number"></p>
-                <p class="board__number"></p>
-                <p class="board__number"></p>
+                <div class="board__grid">
+                    <p class="board__number">2048</p>
+                    <p class="board__number"></p>
+                    <p class="board__number"></p>
+                    <p class="board__number"></p>
+                    <p class="board__number"></p>
+                    <p class="board__number"></p>
+                    <p class="board__number"></p>
+                    <p class="board__number"></p>
+                    <p class="board__number"></p>
+                    <p class="board__number"></p>
+                    <p class="board__number"></p>
+                    <p class="board__number"></p>
+                    <p class="board__number"></p>
+                    <p class="board__number"></p>
+                    <p class="board__number"></p>
+                    <p class="board__number"></p>
+                </div>
+                <div class="board__popup">
+                    <p class="board__popup-text">Game Over!</p>
+                    <button class="board__popup-button">Try again</button>
+                </div>
             </section>
-        
+
             <section class="controls">
                 
             </section>
@@ -59,7 +66,6 @@
             </nav>
         </footer>
     </div>
-
     <template id="board__item">
         <p class="board__number">0</p>
     </template>
