@@ -1,0 +1,9 @@
+.score-board {
+    display: grid;
+    grid-template-columns: repeat(2, 210px);
+    grid-template-rows: 20px 50px;
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
+    gap: 8px;
+}

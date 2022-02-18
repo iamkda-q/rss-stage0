@@ -12,12 +12,18 @@ const rowLength = gameMatrix.length;
 let previousMatrix = getZeroMatrix();
 const numbers = document.querySelectorAll(".board__number");
 const popup = document.querySelector(".board__popup");
-const buttonTryAgain = document.querySelector(".board__popup-button");
+const popupText = popup.querySelector(".board__popup-text");
+const popupButton = popup.querySelector(".board__popup-button");
+const scoreCurrent = document.querySelector(".score-board__score_current");
+const scoreBest = document.querySelector(".score-board__score_best");
 let gameOver = false;
+let win = false;
 
 function startNewGame() {
     gameMatrix = getZeroMatrix();
     gameOver = false;
+    win = false;
+    scoreCurrent.textContent = 0;
     addNewNumbers();
     addNewNumbers();
     renderNumbers();
@@ -64,14 +70,34 @@ function translateLeft(matrix) {
     }
     return newMatrix;
 }
+/* 
+const vv = document.querySelector(".vv"); */
 
-function getSum(matrix) {
+function getSum(matrix, noScore = false) {
     const newMatrix = getZeroMatrix();
+/*     debugger; */
     for (let i = 0; i < rowLength; i++) {
         for (let j = 0; j < rowLength; j++) {
             if (matrix[i][j]) {
                 if (matrix[i][j] == matrix[i][j + 1]) {
                     newMatrix[i][j] = matrix[i][j] * 2;
+                    if (!noScore) {
+                        scoreCurrent.textContent = +scoreCurrent.textContent + matrix[i][j] * 2;
+                        if (+scoreCurrent.textContent > +scoreBest.textContent) {
+                            scoreBest.textContent = scoreCurrent.textContent;
+                            localStorage.setItem("bestResult", scoreCurrent.textContent);
+                        }
+                        if (!win && newMatrix[i][j] == 16) {
+                            win = true;
+                            showWinPopup();
+                        }
+/*                         if (newMatrix[i][j] == 16) {
+                            vv.setAttribute("data-number", 16)
+                        }
+                        if (newMatrix[i][j] == 8) {
+                            vv.setAttribute("data-number", 8)
+                        } */
+                    }
                     j++;
                 } else {
                     newMatrix[i][j] = matrix[i][j];
@@ -102,20 +128,20 @@ function getTransporMatrix(matrix) {
     return newMatrix;
 }
 
-function toLeft(matrix) {
-    return translateLeft(getSum(translateLeft(matrix)));
+function toLeft(matrix, noScore) {
+    return translateLeft(getSum(translateLeft(matrix), noScore));
 }
 
-function toRight(matrix) {
-    return getMirrorMatrix(toLeft(getMirrorMatrix(matrix)));
+function toRight(matrix, noScore) {
+    return getMirrorMatrix(toLeft(getMirrorMatrix(matrix), noScore));
 }
 
-function toTop(matrix) {
-    return getTransporMatrix(toLeft(getTransporMatrix(matrix)));
+function toTop(matrix, noScore) {
+    return getTransporMatrix(toLeft(getTransporMatrix(matrix), noScore));
 }
 
-function toBottom(matrix) {
-    return getTransporMatrix(toRight(getTransporMatrix(matrix)));
+function toBottom(matrix, noScore) {
+    return getTransporMatrix(toRight(getTransporMatrix(matrix), noScore));
 }
 
 function rememberMatrix() {
@@ -138,40 +164,66 @@ function isEqualMatrix(m1, m2) {
 }
 
 function isFull() {
-    let newMatrix = toLeft(gameMatrix);
+    let newMatrix = toLeft(gameMatrix, true);
     if (!isEqualMatrix(newMatrix, gameMatrix)) {
         return false
     }
-    newMatrix = toRight(gameMatrix);
+    newMatrix = toRight(gameMatrix, true);
     if (!isEqualMatrix(newMatrix, gameMatrix)) {
         return false
     }
-    newMatrix = toTop(gameMatrix);
+    newMatrix = toTop(gameMatrix, true);
     if (!isEqualMatrix(newMatrix, gameMatrix)) {
         return false
     }
-    newMatrix = toBottom(gameMatrix);
+    newMatrix = toBottom(gameMatrix, true);
     if (!isEqualMatrix(newMatrix, gameMatrix)) {
         return false
     }
     return true
 }
 
+function showWinPopup() {
+    popupText.textContent = "You win!";
+    popupButton.textContent = "Continue";
+    popup.classList.add("board__popup_visible");
+    popupButton.addEventListener("click", continueGame)
+}
+
+
 function checkEndGame() {
     if (isFull()) {
-        console.log("Game Over");
         gameOver = !gameOver;
+        popupText.textContent = "Game over!";
+        popupButton.textContent = "Try again";
         popup.classList.add("board__popup_visible");
+        popupButton.addEventListener("click", finishGame);
     }
 }
 
-buttonTryAgain.addEventListener("click", (evt) => {
+function continueGame() {
+    popup.classList.remove("board__popup_visible");
+    popupButton.removeEventListener("click", continueGame);
+}
+
+function finishGame() {
+    popup.classList.remove("board__popup_visible");
+    popupButton.removeEventListener("click", finishGame);
+    startNewGame();
+}
+
+
+
+
+/* buttonTryAgain.addEventListener("click", (evt) => {
     popup.classList.remove("board__popup_visible");
     startNewGame();
-});
+}); */
+
+
 
 window.addEventListener("keyup", (e) => {
-    if (e.key == "ArrowLeft" || e.key.toLowerCase() == "a") {
+    if (e.key == "ArrowLeft" || e.code.toLowerCase() == "keya") {
         if (gameOver) {
             return
         }
@@ -186,7 +238,7 @@ window.addEventListener("keyup", (e) => {
 });
 
 window.addEventListener("keyup", (e) => {
-    if (e.key == "ArrowRight" || e.key.toLowerCase() == "d") {
+    if (e.key == "ArrowRight" || e.code.toLowerCase() == "keyd") {
         if (gameOver) {
             return
         }
@@ -204,7 +256,7 @@ window.addEventListener("keyup", (e) => {
 });
 
 window.addEventListener("keyup", (e) => {
-    if (e.key == "ArrowUp" || e.key.toLowerCase() == "w") {
+    if (e.key == "ArrowUp" || e.code.toLowerCase() == "keyw") {
         if (gameOver) {
             return
         }
@@ -222,7 +274,7 @@ window.addEventListener("keyup", (e) => {
 });
 
 window.addEventListener("keyup", (e) => {
-    if (e.key == "ArrowDown" || e.key.toLowerCase() == "s") {
+    if (e.key == "ArrowDown" || e.code.toLowerCase() == "keys") {
         if (gameOver) {
             return
         }
@@ -237,3 +289,9 @@ window.addEventListener("keyup", (e) => {
 });
 
 startNewGame();
+
+if (!localStorage.getItem("bestResult")) {
+    localStorage.setItem("bestResult", 0);
+}
+scoreBest.textContent = localStorage.getItem("bestResult");
+    

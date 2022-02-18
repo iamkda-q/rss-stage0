@@ -9,5 +9,12 @@
     font-size: 36px;
     background-color: bisque;
     border: 1px red solid;
+}
 
+.board__number[data-number="16"] {
+    background-color: rgb(17, 10, 0);
+}
+
+.board__number[data-number="8"] {
+    background-color: rgb(151, 108, 48);
 }
