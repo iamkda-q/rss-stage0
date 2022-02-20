@@ -12,7 +12,8 @@ const rowLength = gameMatrix.length;
 let previousMatrix = getZeroMatrix();
 const numbers = document.querySelectorAll(".board__number");
 const popupEndGame = document.querySelector(".popup_type_end-game");
-const popupMessage = popupEndGame.querySelector(".popup__message");
+const popupCongr = popupEndGame.querySelector(".popup__message_congr");
+const popupScore = popupEndGame.querySelector(".popup__message_score");
 const popupButton = popupEndGame.querySelector(".popup__button");
 const scoreCurrent = document.querySelector(".board__score_current");
 const scoreBest = document.querySelector(".board__score_best");
@@ -228,7 +229,8 @@ function isFull() {
 }
 
 function showWinPopup() {
-    popupMessage.textContent = "You win!";
+    popupCongr.textContent = "You win!";
+    popupScore.textContent = `Score: ${scoreCurrent.textContent}`;
     popupButton.textContent = "Continue";
     popupEndGame.classList.add("popup_visible");
     popupButton.addEventListener("click", continueGame);
@@ -238,7 +240,8 @@ function showWinPopup() {
 function checkEndGame() {
     if (isFull()) {
         gameOver = !gameOver;
-        popupMessage.textContent = "Game over!";
+        popupCongr.textContent = `Game over!`;
+        popupScore.textContent = `Score: ${scoreCurrent.textContent}`;
         popupButton.textContent = "Try again";
         popupEndGame.classList.add("popup_visible");
         popupButton.addEventListener("click", finishGame);
