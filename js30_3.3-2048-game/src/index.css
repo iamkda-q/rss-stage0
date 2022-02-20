@@ -14,7 +14,7 @@
 @import url(./blocks/board/__grid/board__grid.css);
 @import url(./blocks/board/__number/board__number.css);
 @import url(./blocks/board/__result-table/board__result-table.css);
-@import url(./blocks/board/__result-button/board__result-button.css);
+@import url(./blocks/board/__button/board__button.css);
 
 /*
 @import url(./blocks/);

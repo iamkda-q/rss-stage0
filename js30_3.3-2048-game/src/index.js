@@ -16,12 +16,16 @@ const popupMessage = popupEndGame.querySelector(".popup__message");
 const popupButton = popupEndGame.querySelector(".popup__button");
 const scoreCurrent = document.querySelector(".board__score_current");
 const scoreBest = document.querySelector(".board__score_best");
-const resultsButton = document.querySelector(".board__result-button");
+const startButton = document.querySelector(".board__button_start");
+const resultsButton = document.querySelector(".board__button_result");
 const popupResults = document.querySelector(".popup_type_results");
 const popupCloseButton = document.querySelector(".popup__close-button");
 const results = document.querySelectorAll(".popup__text_score");
+const resultsBest = document.querySelectorAll(".popup__text_best");
+let [firstFlag, secondFlag] = [true, true];
 let gameOver;
 let win;
+let gamesPosition;
 
 function startNewGame() {
     gameMatrix = getZeroMatrix();
@@ -33,6 +37,7 @@ function startNewGame() {
     renderNumbers();
     rememberMatrix();
     addEventListeners();
+    gamesPosition = resultsData.length == 10 ? resultsData.length - 1 : resultsData.length;
     if (resultsData[gamesPosition]) {
         resultsData.shift();
         resultsData.push(0);
@@ -45,7 +50,13 @@ function renderNumbers() {
     let i = 0;
     gameMatrix.forEach((row) => {
         row.forEach((item) => {
+            if (item) {
+                numbers[i].setAttribute("data-number", item);
+            } else {
+                numbers[i].removeAttribute("data-number");
+            }
             numbers[i++].textContent = item;
+
         });
     });
 }
@@ -92,19 +103,33 @@ function getSum(matrix, noScore = false) {
                 if (matrix[i][j] == matrix[i][j + 1]) {
                     newMatrix[i][j] = matrix[i][j] * 2;
                     if (!noScore) {
-                        const score = +scoreCurrent.textContent + matrix[i][j] * 2;
+                        const score =
+                            +scoreCurrent.textContent + matrix[i][j] * 2;
                         scoreCurrent.textContent = score;
                         results[gamesPosition].textContent = score + " points";
                         resultsData[gamesPosition] = score;
                         saveResults();
-                        if (
-                            score > +scoreBest.textContent
-                        ) {
+                        if (score > resultsBestData[0]) {
+                            if (firstFlag) {
+                                firstFlag = !firstFlag;
+                                resultsBestData[1] = resultsBestData[0];
+                            }
+                            resultsBestData[0] = score;
                             scoreBest.textContent = score;
-                            localStorage.setItem(
-                                "bestResult",
-                                score
-                            );
+                            saveBestResults();
+                            renderBestResults();
+                        } else if (score > resultsBestData[1]) {
+                            if (secondFlag) {
+                                secondFlag = !secondFlag;
+                                resultsBestData[2] = resultsBestData[1];
+                            }
+                            resultsBestData[1] = score;
+                            saveBestResults();
+                            renderBestResults();
+                        } else if (score > resultsBestData[2]) {
+                            resultsBestData[2] = score;
+                            saveBestResults();
+                            renderBestResults();
                         }
                         if (!win && newMatrix[i][j] == 16) {
                             win = true;
@@ -232,11 +257,6 @@ function finishGame() {
     startNewGame();
 }
 
-/* buttonTryAgain.addEventListener("click", (evt) => {
-    popup.classList.remove("popup_visible");
-    startNewGame();
-}); */
-
 function action(method) {
     if (gameOver) {
         return;
@@ -325,27 +345,53 @@ function saveResults() {
     localStorage.setItem("resultsData", JSON.stringify(resultsData));
 }
 
+function saveBestResults() {
+    localStorage.setItem("resultsBestData", JSON.stringify(resultsBestData));
+}
+
 function renderResults() {
     results.forEach((item, i) => {
-        item.textContent = resultsData[i] ? resultsData[i] + " points" : "Waiting for the game";
+        item.textContent = resultsData[i]
+            ? resultsData[i] + " points"
+            : "Waiting for the game";
     });
 }
 
+function renderBestResults() {
+    resultsBest.forEach((item, i) => {
+        item.textContent = resultsBestData[i]
+            ? resultsBestData[i] + " points"
+            : 0;
+    });
+}
+
+startButton.addEventListener("click", () => {
+    startNewGame();
+    startButton.blur();
+});
+
 resultsButton.addEventListener("click", () => {
     popupResults.classList.add("popup_visible");
+    removeEventListeners();
 });
+
 popupCloseButton.addEventListener("click", () => {
     popupResults.classList.remove("popup_visible");
+    addEventListeners();
 });
 
-
-
-if (!localStorage.getItem("bestResult")) {
-    localStorage.setItem("bestResult", 0);
-}
-scoreBest.textContent = localStorage.getItem("bestResult");
-
 let resultsData;
+let resultsBestData;
+
+if (localStorage.getItem("resultsBestData")) {
+    resultsBestData = JSON.parse(localStorage.getItem("resultsBestData"));
+    renderBestResults();
+} else {
+    localStorage.setItem("resultsBestData", JSON.stringify([0, 0, 0]));
+    resultsBestData = JSON.parse(localStorage.getItem("resultsBestData"));
+}
+
+scoreBest.textContent = resultsBestData[0];
 
 if (localStorage.getItem("resultsData")) {
     resultsData = JSON.parse(localStorage.getItem("resultsData"));
@@ -355,9 +401,9 @@ if (localStorage.getItem("resultsData")) {
     resultsData = JSON.parse(localStorage.getItem("resultsData"));
 }
 
-const gamesPosition = (resultsData.length == 10) ? resultsData.length - 1 : resultsData.length;
-
-startNewGame();
 
 
+renderResults();
+renderBestResults();
 
+console.log(resultsBestData);
