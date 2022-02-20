@@ -1,4 +1,4 @@
-.board__popup-button {
+.popup__button {
     margin: 0;
     padding: 0;
     border: transparent 2px solid;
@@ -11,11 +11,11 @@
     transition: background-color var(--transition), var(--transition), transform var(--transition);
 }
 
-.board__popup-button:hover {
+.popup__button:hover {
     background-color: #f16507;;
     border: black 2px solid;
 }
 
-.board__popup-button:active {
+.popup__button:active {
     transform: scale(0.9);
 }

@@ -1,4 +1,4 @@
-.score-board {
+.board__score-table {
     display: grid;
     grid-template-columns: repeat(2, 210px);
     grid-template-rows: 20px 50px;

@@ -1,0 +1,10 @@
+.popup__grid {
+    display: grid;
+    width: 70%;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(15, 4vh);
+    border-radius: 10px;
+    justify-items: center;
+    align-items: center;
+    gap: 2vh;
+}

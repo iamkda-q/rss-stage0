@@ -1,79 +1,147 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Коннов Дмитрий">
-    <meta name="description" content="Популярная игра для смартфонов - 2048">
-    <title>2048-game</title>
-    <link rel="shortcut icon" href="./src/images/scIcon.png" type="image/x-icon">
-    <link rel="stylesheet" href="./src/index.css">
-</head>
-<body class="page">
-    <div class="page__container">
-        <header class="header">
-            <p class="header__title"> Всеми любимая 2048 </p>
-        </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="Коннов Дмитрий" />
+        <meta
+            name="description"
+            content="Популярная игра для смартфонов - 2048"
+        />
+        <title>2048-game</title>
+        <link
+            rel="shortcut icon"
+            href="./src/images/scIcon.png"
+            type="image/x-icon"
+        />
+        <link rel="stylesheet" href="./src/index.css" />
+    </head>
+    <body class="page">
+        <div class="page__container">
+            <header class="header">
+                <p class="header__title">Всеми любимая 2048</p>
+            </header>
 
-        <main class="main">
+            <main class="main">
+                <section class="board">
+                    <div class="board__score-table">
+                        <p class="board__text">Current score</p>
+                        <p class="board__text">Best game</p>
+                        <p class="board__score board__score_current">0</p>
+                        <p class="board__score board__score_best"></p>
+                    </div>
 
-            <section class="board">
+                    <div class="board__grid">
+                        <p class="board__number vv"></p>
+                        <p class="board__number"></p>
+                        <p class="board__number"></p>
+                        <p class="board__number"></p>
+                        <p class="board__number"></p>
+                        <p class="board__number"></p>
+                        <p class="board__number"></p>
+                        <p class="board__number"></p>
+                        <p class="board__number"></p>
+                        <p class="board__number"></p>
+                        <p class="board__number"></p>
+                        <p class="board__number"></p>
+                        <p class="board__number"></p>
+                        <p class="board__number"></p>
+                        <p class="board__number"></p>
+                        <p class="board__number"></p>
+                    </div>
 
-                <div class="score-board">
-                    <p class="score-board__text">Current score</p>
-                    <p class="score-board__text">Best game</p>
-                    <p class="score-board__score score-board__score_current">0</p>
-                    <p class="score-board__score score-board__score_best"></p>
+                    <div class="board__result-table">
+                        <button class="board__result-button">
+                            Click to view results table
+                        </button>
+                    </div>
+
+                    <div class="popup popup_type_end-game">
+                        <p class="popup__message"></p>
+                        <button class="popup__button"></button>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="footer">
+                <nav>
+                    <ul class="footer__list-logo">
+                        <li>
+                            <address class="footer__copyright page__white-text">
+                                2022. Коннов Дмитрий
+                            </address>
+                        </li>
+                        <li class="footer__github">
+                            <a
+                                href="https://github.com/iamkda-q"
+                                class="footer__link page__white-text"
+                                target="blank"
+                                >My github</a
+                            >
+                        </li>
+                        <li class="footer__logo-cont">
+                            <a
+                                href="https://rs.school/js-stage0/"
+                                class="footer__link"
+                                target="blank"
+                            >
+                                <img
+                                    src="https://rs.school/images/rs_school_js.svg"
+                                    alt="Rolling Scopes School"
+                                    class="footer__logo"
+                                />
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </footer>
+
+            <div class="popup popup_type_results">
+                <div class="popup__grid">
+                    <p class="popup__title">Top results</p>
+                    <p class="popup__text">First place</p>
+                    <p class="popup__text popup__text_first">
+                        Waiting for the game
+                    </p>
+                    <p class="popup__text">Second place</p>
+                    <p class="popup__text popup__text_second">
+                        Waiting for the game
+                    </p>
+                    <p class="popup__text">Third place</p>
+                    <p class="popup__text popup__text_third">
+                        Waiting for the game
+                    </p>
+
+                    <p class="popup__title">Latest games</p>
+                    <p class="popup__text">1</p>
+                    <p class="popup__text popup__text_score"></p>
+                    <p class="popup__text">2</p>
+                    <p class="popup__text popup__text_score"></p>
+                    <p class="popup__text">3</p>
+                    <p class="popup__text popup__text_score"></p>
+                    <p class="popup__text">4</p>
+                    <p class="popup__text popup__text_score"></p>
+                    <p class="popup__text">5</p>
+                    <p class="popup__text popup__text_score"></p>
+                    <p class="popup__text">6</p>
+                    <p class="popup__text popup__text_score"></p>
+                    <p class="popup__text">7</p>
+                    <p class="popup__text popup__text_score"></p>
+                    <p class="popup__text">8</p>
+                    <p class="popup__text popup__text_score"></p>
+                    <p class="popup__text">9</p>
+                    <p class="popup__text popup__text_score"></p>
+                    <p class="popup__text">10</p>
+                    <p class="popup__text popup__text_score"></p>
                 </div>
+                <button class="popup__close-button"></button>
+            </div>
+        </div>
 
-                <div class="board__grid">
-                    <p class="board__number vv"></p>
-                    <p class="board__number"></p>
-                    <p class="board__number"></p>
-                    <p class="board__number"></p>
-                    <p class="board__number"></p>
-                    <p class="board__number"></p>
-                    <p class="board__number"></p>
-                    <p class="board__number"></p>
-                    <p class="board__number"></p>
-                    <p class="board__number"></p>
-                    <p class="board__number"></p>
-                    <p class="board__number"></p>
-                    <p class="board__number"></p>
-                    <p class="board__number"></p>
-                    <p class="board__number"></p>
-                    <p class="board__number"></p>
-                </div>
-                <div class="board__popup">
-                    <p class="board__popup-text">Game Over!</p>
-                    <button class="board__popup-button">Try again</button>
-                </div>
-            </section>
-
-        </main>
-
-        <footer class="footer">
-            <nav>
-                <ul class="footer__list-logo">
-                <li>
-                    <address class="footer__copyright page__white-text">2022. Коннов Дмитрий</address>
-                </li>
-                <li class="footer__github">
-                    <a href="https://github.com/iamkda-q" class="footer__link page__white-text" target="blank">My github</a>
-                </li>
-                <li class="footer__logo-cont">
-                    <a href="https://rs.school/js-stage0/" class="footer__link" target="blank">
-                    <img src="https://rs.school/images/rs_school_js.svg" alt="Rolling Scopes School" class="footer__logo">
-                    </a>
-                </li>
-                </ul>
-            </nav>
-        </footer>
-    </div>
-    <template id="board__item">
-        <p class="board__number">0</p>
-    </template>
-<script type="module" src="./src/index.js"></script>
-</body>
+        <template id="board__item">
+            <p class="board__number">0</p>
+        </template>
+        <script type="module" src="./src/index.js"></script>
+    </body>
 </html>

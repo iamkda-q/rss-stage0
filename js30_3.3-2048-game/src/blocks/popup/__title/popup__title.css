@@ -1,0 +1,15 @@
+.popup__title {
+    margin: 0;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: bold;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffa4c4;
+}

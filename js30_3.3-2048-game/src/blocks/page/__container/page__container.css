@@ -6,11 +6,12 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 80px 1fr 80px;
+    position: relative;
 }
 
 @media screen and (max-width: 1600px) {
     .page__container {
-        width: 40%;
+        width: 80%;
     }
 }
 

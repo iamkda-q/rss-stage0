@@ -11,13 +11,17 @@ let gameMatrix = getZeroMatrix();
 const rowLength = gameMatrix.length;
 let previousMatrix = getZeroMatrix();
 const numbers = document.querySelectorAll(".board__number");
-const popup = document.querySelector(".board__popup");
-const popupText = popup.querySelector(".board__popup-text");
-const popupButton = popup.querySelector(".board__popup-button");
-const scoreCurrent = document.querySelector(".score-board__score_current");
-const scoreBest = document.querySelector(".score-board__score_best");
-let gameOver = false;
-let win = false;
+const popupEndGame = document.querySelector(".popup_type_end-game");
+const popupMessage = popupEndGame.querySelector(".popup__message");
+const popupButton = popupEndGame.querySelector(".popup__button");
+const scoreCurrent = document.querySelector(".board__score_current");
+const scoreBest = document.querySelector(".board__score_best");
+const resultsButton = document.querySelector(".board__result-button");
+const popupResults = document.querySelector(".popup_type_results");
+const popupCloseButton = document.querySelector(".popup__close-button");
+const results = document.querySelectorAll(".popup__text_score");
+let gameOver;
+let win;
 
 function startNewGame() {
     gameMatrix = getZeroMatrix();
@@ -28,6 +32,13 @@ function startNewGame() {
     addNewNumbers();
     renderNumbers();
     rememberMatrix();
+    addEventListeners();
+    if (resultsData[gamesPosition]) {
+        resultsData.shift();
+        resultsData.push(0);
+        saveResults();
+        renderResults();
+    }
 }
 
 function renderNumbers() {
@@ -72,26 +83,34 @@ function translateLeft(matrix) {
 }
 /* 
 const vv = document.querySelector(".vv"); */
-
 function getSum(matrix, noScore = false) {
     const newMatrix = getZeroMatrix();
-/*     debugger; */
+    /*     debugger; */
     for (let i = 0; i < rowLength; i++) {
         for (let j = 0; j < rowLength; j++) {
             if (matrix[i][j]) {
                 if (matrix[i][j] == matrix[i][j + 1]) {
                     newMatrix[i][j] = matrix[i][j] * 2;
                     if (!noScore) {
-                        scoreCurrent.textContent = +scoreCurrent.textContent + matrix[i][j] * 2;
-                        if (+scoreCurrent.textContent > +scoreBest.textContent) {
-                            scoreBest.textContent = scoreCurrent.textContent;
-                            localStorage.setItem("bestResult", scoreCurrent.textContent);
+                        const score = +scoreCurrent.textContent + matrix[i][j] * 2;
+                        scoreCurrent.textContent = score;
+                        results[gamesPosition].textContent = score + " points";
+                        resultsData[gamesPosition] = score;
+                        saveResults();
+                        if (
+                            score > +scoreBest.textContent
+                        ) {
+                            scoreBest.textContent = score;
+                            localStorage.setItem(
+                                "bestResult",
+                                score
+                            );
                         }
                         if (!win && newMatrix[i][j] == 16) {
                             win = true;
                             showWinPopup();
                         }
-/*                         if (newMatrix[i][j] == 16) {
+                        /*                         if (newMatrix[i][j] == 16) {
                             vv.setAttribute("data-number", 16)
                         }
                         if (newMatrix[i][j] == 8) {
@@ -166,86 +185,86 @@ function isEqualMatrix(m1, m2) {
 function isFull() {
     let newMatrix = toLeft(gameMatrix, true);
     if (!isEqualMatrix(newMatrix, gameMatrix)) {
-        return false
+        return false;
     }
     newMatrix = toRight(gameMatrix, true);
     if (!isEqualMatrix(newMatrix, gameMatrix)) {
-        return false
+        return false;
     }
     newMatrix = toTop(gameMatrix, true);
     if (!isEqualMatrix(newMatrix, gameMatrix)) {
-        return false
+        return false;
     }
     newMatrix = toBottom(gameMatrix, true);
     if (!isEqualMatrix(newMatrix, gameMatrix)) {
-        return false
+        return false;
     }
-    return true
+    return true;
 }
 
 function showWinPopup() {
-    popupText.textContent = "You win!";
+    popupMessage.textContent = "You win!";
     popupButton.textContent = "Continue";
-    popup.classList.add("board__popup_visible");
-    popupButton.addEventListener("click", continueGame)
+    popupEndGame.classList.add("popup_visible");
+    popupButton.addEventListener("click", continueGame);
+    removeEventListeners();
 }
-
 
 function checkEndGame() {
     if (isFull()) {
         gameOver = !gameOver;
-        popupText.textContent = "Game over!";
+        popupMessage.textContent = "Game over!";
         popupButton.textContent = "Try again";
-        popup.classList.add("board__popup_visible");
+        popupEndGame.classList.add("popup_visible");
         popupButton.addEventListener("click", finishGame);
     }
 }
 
 function continueGame() {
-    popup.classList.remove("board__popup_visible");
+    popupEndGame.classList.remove("popup_visible");
     popupButton.removeEventListener("click", continueGame);
+    addEventListeners();
 }
 
 function finishGame() {
-    popup.classList.remove("board__popup_visible");
+    popupEndGame.classList.remove("popup_visible");
     popupButton.removeEventListener("click", finishGame);
     startNewGame();
 }
 
-
-
-
 /* buttonTryAgain.addEventListener("click", (evt) => {
-    popup.classList.remove("board__popup_visible");
+    popup.classList.remove("popup_visible");
     startNewGame();
 }); */
 
-
-
-window.addEventListener("keyup", (e) => {
-    if (e.key == "ArrowLeft" || e.code.toLowerCase() == "keya") {
-        if (gameOver) {
-            return
-        }
-        rememberMatrix();
-        gameMatrix = toLeft(gameMatrix);
-        if (!isEqualMatrix(previousMatrix, gameMatrix)) {
-            addNewNumbers();
-            checkEndGame();
-        }
-        renderNumbers();
+function action(method) {
+    if (gameOver) {
+        return;
     }
-});
+    rememberMatrix();
+    gameMatrix = method(gameMatrix);
+    if (!isEqualMatrix(previousMatrix, gameMatrix)) {
+        addNewNumbers();
+        checkEndGame();
+    }
+    renderNumbers();
+}
 
-window.addEventListener("keyup", (e) => {
+function leftAction(e) {
+    if (e.key == "ArrowLeft" || e.code.toLowerCase() == "keya") {
+        action(toLeft);
+    }
+}
+
+function rightAction(e) {
     if (e.key == "ArrowRight" || e.code.toLowerCase() == "keyd") {
         if (gameOver) {
-            return
+            return;
         }
         rememberMatrix();
         gameMatrix = toRight(gameMatrix);
         if (gameOver) {
-            return
+            return;
         }
         if (!isEqualMatrix(previousMatrix, gameMatrix)) {
             addNewNumbers();
@@ -253,17 +272,17 @@ window.addEventListener("keyup", (e) => {
         }
         renderNumbers();
     }
-});
+}
 
-window.addEventListener("keyup", (e) => {
+function topAction(e) {
     if (e.key == "ArrowUp" || e.code.toLowerCase() == "keyw") {
         if (gameOver) {
-            return
+            return;
         }
         rememberMatrix();
         gameMatrix = toTop(gameMatrix);
         if (gameOver) {
-            return
+            return;
         }
         if (!isEqualMatrix(previousMatrix, gameMatrix)) {
             addNewNumbers();
@@ -271,12 +290,12 @@ window.addEventListener("keyup", (e) => {
         }
         renderNumbers();
     }
-});
+}
 
-window.addEventListener("keyup", (e) => {
+function bottomAction(e) {
     if (e.key == "ArrowDown" || e.code.toLowerCase() == "keys") {
         if (gameOver) {
-            return
+            return;
         }
         rememberMatrix();
         gameMatrix = toBottom(gameMatrix);
@@ -286,12 +305,59 @@ window.addEventListener("keyup", (e) => {
         }
         renderNumbers();
     }
+}
+
+function addEventListeners() {
+    window.addEventListener("keyup", leftAction);
+    window.addEventListener("keyup", rightAction);
+    window.addEventListener("keyup", topAction);
+    window.addEventListener("keyup", bottomAction);
+}
+
+function removeEventListeners() {
+    window.removeEventListener("keyup", leftAction);
+    window.removeEventListener("keyup", rightAction);
+    window.removeEventListener("keyup", topAction);
+    window.removeEventListener("keyup", bottomAction);
+}
+
+function saveResults() {
+    localStorage.setItem("resultsData", JSON.stringify(resultsData));
+}
+
+function renderResults() {
+    results.forEach((item, i) => {
+        item.textContent = resultsData[i] ? resultsData[i] + " points" : "Waiting for the game";
+    });
+}
+
+resultsButton.addEventListener("click", () => {
+    popupResults.classList.add("popup_visible");
+});
+popupCloseButton.addEventListener("click", () => {
+    popupResults.classList.remove("popup_visible");
 });
 
-startNewGame();
+
 
 if (!localStorage.getItem("bestResult")) {
     localStorage.setItem("bestResult", 0);
 }
 scoreBest.textContent = localStorage.getItem("bestResult");
-    
+
+let resultsData;
+
+if (localStorage.getItem("resultsData")) {
+    resultsData = JSON.parse(localStorage.getItem("resultsData"));
+    renderResults();
+} else {
+    localStorage.setItem("resultsData", JSON.stringify([]));
+    resultsData = JSON.parse(localStorage.getItem("resultsData"));
+}
+
+const gamesPosition = (resultsData.length == 10) ? resultsData.length - 1 : resultsData.length;
+
+startNewGame();
+
+
+

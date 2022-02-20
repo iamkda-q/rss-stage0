@@ -1,9 +1,7 @@
-.board__popup {
+.popup {
     --transition: 0.1s linear;
     visibility: hidden;
     opacity: 0;
-    width: calc(100px*4 + 10px*3 + 200px);
-    height: calc(100px*4 + 10px*3 + 200px);
     position: absolute;
     background-color: rgba(0,0,0,0.8);
     display: flex;
