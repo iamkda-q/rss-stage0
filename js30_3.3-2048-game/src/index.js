@@ -1,15 +1,3 @@
-function getZeroMatrix() {
-    return [
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-    ];
-}
-
-let gameMatrix = getZeroMatrix();
-const rowLength = gameMatrix.length;
-let previousMatrix = getZeroMatrix();
 const numbers = document.querySelectorAll(".board__number");
 const popupEndGame = document.querySelector(".popup_type_end-game");
 const popupCongr = popupEndGame.querySelector(".popup__message_congr");
@@ -23,28 +11,25 @@ const popupResults = document.querySelector(".popup_type_results");
 const popupCloseButton = document.querySelector(".popup__close-button");
 const results = document.querySelectorAll(".popup__text_score");
 const resultsBest = document.querySelectorAll(".popup__text_best");
-let [firstFlag, secondFlag] = [true, true];
+const knockSound = document.querySelector("#knock-sound");
+const winSound = document.querySelector("#win-sound");
+const falseSound = document.querySelector("#false-sound");
+
+let gameMatrix = getZeroMatrix();
+const rowLength = gameMatrix.length;
+let previousMatrix = getZeroMatrix();
+let [firstFlag, secondFlag] = [true, true]; // для топа трёх результатов
 let gameOver;
 let win;
 let gamesPosition;
 
-function startNewGame() {
-    gameMatrix = getZeroMatrix();
-    gameOver = false;
-    win = false;
-    scoreCurrent.textContent = 0;
-    addNewNumbers();
-    addNewNumbers();
-    renderNumbers();
-    rememberMatrix();
-    addEventListeners();
-    gamesPosition = resultsData.length == 10 ? resultsData.length - 1 : resultsData.length;
-    if (resultsData[gamesPosition]) {
-        resultsData.shift();
-        resultsData.push(0);
-        saveResults();
-        renderResults();
-    }
+function getZeroMatrix() {
+    return [
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+    ];
 }
 
 function renderNumbers() {
@@ -57,11 +42,11 @@ function renderNumbers() {
                 numbers[i].removeAttribute("data-number");
             }
             numbers[i++].textContent = item;
-
         });
     });
 }
 
+/* поиск нулевых значений => добавление их позиций в массив => извлечение случайной позиции => добавление туда двойки*/
 function addNewNumbers() {
     let zeros = [];
     for (let i = 0; i < rowLength; i++) {
@@ -93,16 +78,16 @@ function translateLeft(matrix) {
     }
     return newMatrix;
 }
-/* 
-const vv = document.querySelector(".vv"); */
+
 function getSum(matrix, noScore = false) {
     const newMatrix = getZeroMatrix();
-    /*     debugger; */
     for (let i = 0; i < rowLength; i++) {
         for (let j = 0; j < rowLength; j++) {
             if (matrix[i][j]) {
                 if (matrix[i][j] == matrix[i][j + 1]) {
                     newMatrix[i][j] = matrix[i][j] * 2;
+                    /* при запуске с флагом noScore не обновляются набранные очки и таблицы результатов */
+                    /* используется при проверке на gameOver */
                     if (!noScore) {
                         const score =
                             +scoreCurrent.textContent + matrix[i][j] * 2;
@@ -132,16 +117,11 @@ function getSum(matrix, noScore = false) {
                             saveBestResults();
                             renderBestResults();
                         }
-                        if (!win && newMatrix[i][j] == 16) {
+                        if (!win && newMatrix[i][j] == 128) {
                             win = true;
+                            winSound.play();
                             showWinPopup();
                         }
-                        /*                         if (newMatrix[i][j] == 16) {
-                            vv.setAttribute("data-number", 16)
-                        }
-                        if (newMatrix[i][j] == 8) {
-                            vv.setAttribute("data-number", 8)
-                        } */
                     }
                     j++;
                 } else {
@@ -208,6 +188,7 @@ function isEqualMatrix(m1, m2) {
     return true;
 }
 
+/* Проверка на возможность продолжения игры */
 function isFull() {
     let newMatrix = toLeft(gameMatrix, true);
     if (!isEqualMatrix(newMatrix, gameMatrix)) {
@@ -228,6 +209,29 @@ function isFull() {
     return true;
 }
 
+function startNewGame() {
+    gameMatrix = getZeroMatrix();
+    gameOver = false;
+    win = false;
+    scoreCurrent.textContent = 0;
+    addNewNumbers();
+    addNewNumbers();
+    renderNumbers();
+    rememberMatrix();
+    addEventListeners();
+    /* для обновления результата текущей игры в реальном времени в таблице результатов*/
+    gamesPosition =
+        resultsData.length == 10 ? resultsData.length - 1 : resultsData.length; // поиск незаполненной строки в таблице последних игр
+    /* если 10 игр уже сыграно - при старте новой игры сдвигаем результаты*/
+    if (resultsData[gamesPosition]) {
+        resultsData.shift();
+        resultsData.push(0);
+        saveResults();
+        renderResults();
+    }
+}
+
+/* Действия при окончании игры */
 function showWinPopup() {
     popupCongr.textContent = "You win!";
     popupScore.textContent = `Score: ${scoreCurrent.textContent}`;
@@ -245,6 +249,7 @@ function checkEndGame() {
         popupButton.textContent = "Try again";
         popupEndGame.classList.add("popup_visible");
         popupButton.addEventListener("click", finishGame);
+        falseSound.play();
     }
 }
 
@@ -259,7 +264,9 @@ function finishGame() {
     popupButton.removeEventListener("click", finishGame);
     startNewGame();
 }
+/* Действия при окончании игры */
 
+/* Действия при нажатии на управляющие клавиши */
 function action(method) {
     if (gameOver) {
         return;
@@ -267,6 +274,7 @@ function action(method) {
     rememberMatrix();
     gameMatrix = method(gameMatrix);
     if (!isEqualMatrix(previousMatrix, gameMatrix)) {
+        knockSound.play();
         addNewNumbers();
         checkEndGame();
     }
@@ -281,54 +289,22 @@ function leftAction(e) {
 
 function rightAction(e) {
     if (e.key == "ArrowRight" || e.code.toLowerCase() == "keyd") {
-        if (gameOver) {
-            return;
-        }
-        rememberMatrix();
-        gameMatrix = toRight(gameMatrix);
-        if (gameOver) {
-            return;
-        }
-        if (!isEqualMatrix(previousMatrix, gameMatrix)) {
-            addNewNumbers();
-            checkEndGame();
-        }
-        renderNumbers();
+        action(toRight);
     }
 }
 
 function topAction(e) {
     if (e.key == "ArrowUp" || e.code.toLowerCase() == "keyw") {
-        if (gameOver) {
-            return;
-        }
-        rememberMatrix();
-        gameMatrix = toTop(gameMatrix);
-        if (gameOver) {
-            return;
-        }
-        if (!isEqualMatrix(previousMatrix, gameMatrix)) {
-            addNewNumbers();
-            checkEndGame();
-        }
-        renderNumbers();
+        action(toTop);
     }
 }
 
 function bottomAction(e) {
     if (e.key == "ArrowDown" || e.code.toLowerCase() == "keys") {
-        if (gameOver) {
-            return;
-        }
-        rememberMatrix();
-        gameMatrix = toBottom(gameMatrix);
-        if (!isEqualMatrix(previousMatrix, gameMatrix)) {
-            addNewNumbers();
-            checkEndGame();
-        }
-        renderNumbers();
+        action(toBottom);
     }
 }
+/* Действия при нажатии на управляющие клавиши */
 
 function addEventListeners() {
     window.addEventListener("keyup", leftAction);
@@ -342,6 +318,42 @@ function removeEventListeners() {
     window.removeEventListener("keyup", rightAction);
     window.removeEventListener("keyup", topAction);
     window.removeEventListener("keyup", bottomAction);
+}
+
+startButton.addEventListener("click", () => {
+    startNewGame();
+    startButton.blur();
+});
+
+resultsButton.addEventListener("click", () => {
+    popupResults.classList.add("popup_visible");
+    removeEventListeners();
+});
+
+popupCloseButton.addEventListener("click", () => {
+    popupResults.classList.remove("popup_visible");
+    addEventListeners();
+});
+
+/* Работа с localStorage */
+/* Создание данных для таблицы результатов при первой загрузке страницы */
+let resultsData;
+let resultsBestData;
+
+if (localStorage.getItem("resultsBestData")) {
+    resultsBestData = JSON.parse(localStorage.getItem("resultsBestData"));
+    renderBestResults();
+} else {
+    localStorage.setItem("resultsBestData", JSON.stringify([0, 0, 0]));
+    resultsBestData = JSON.parse(localStorage.getItem("resultsBestData"));
+}
+
+if (localStorage.getItem("resultsData")) {
+    resultsData = JSON.parse(localStorage.getItem("resultsData"));
+    renderResults();
+} else {
+    localStorage.setItem("resultsData", JSON.stringify([]));
+    resultsData = JSON.parse(localStorage.getItem("resultsData"));
 }
 
 function saveResults() {
@@ -362,51 +374,42 @@ function renderResults() {
 
 function renderBestResults() {
     resultsBest.forEach((item, i) => {
-        item.textContent = resultsBestData[i]
-            ? resultsBestData[i] + " points"
-            : 0;
+        item.textContent = resultsBestData[i] + " points";
     });
 }
 
-startButton.addEventListener("click", () => {
-    startNewGame();
-    startButton.blur();
-});
-
-resultsButton.addEventListener("click", () => {
-    popupResults.classList.add("popup_visible");
-    removeEventListeners();
-});
-
-popupCloseButton.addEventListener("click", () => {
-    popupResults.classList.remove("popup_visible");
-    addEventListeners();
-});
-
-let resultsData;
-let resultsBestData;
-
-if (localStorage.getItem("resultsBestData")) {
-    resultsBestData = JSON.parse(localStorage.getItem("resultsBestData"));
-    renderBestResults();
-} else {
-    localStorage.setItem("resultsBestData", JSON.stringify([0, 0, 0]));
-    resultsBestData = JSON.parse(localStorage.getItem("resultsBestData"));
-}
-
-scoreBest.textContent = resultsBestData[0];
-
-if (localStorage.getItem("resultsData")) {
-    resultsData = JSON.parse(localStorage.getItem("resultsData"));
-    renderResults();
-} else {
-    localStorage.setItem("resultsData", JSON.stringify([]));
-    resultsData = JSON.parse(localStorage.getItem("resultsData"));
-}
-
-
-
+scoreBest.textContent = resultsBestData[0]; // отображение лучшего результата
 renderResults();
 renderBestResults();
 
-console.log(resultsBestData);
+console.log(
+    `
+    Правила игры: нажатием клавиш W S A D или стрелок набрать в одном из игровых квадратиков 2048 
+    (сейчас выигрыш засчитывается при наборе 128, а не 2048 для удобства проверки проверяющего)
+    Если свободных квадратиков не осталось, и при этом нет возможности сдвинуть игровое поле - вы проиграли.
+
+
+    "Самооценка для проверяющего"
+Score: 57 / 60.
+
+[10/10] - Вёрстка
+- [+] реализован интерфейс игры (+5)
+- [+] в футере приложения есть ссылка на гитхаб автора приложения, год создания приложения, логотип курса со ссылкой на курс (+5)
+
+[10/10] - Логика игры. Ходы, перемещения фигур, другие действия игрока подчиняются определённым свойственным игре правилам
+
+[10/10] - Реализовано завершение игры при достижении игровой цели
+
+[10/10] - По окончанию игры выводится её результат, набранные баллы, выигрыш или поражение
+
+[10/10] - Результаты последних 10 игр сохраняются в local storage. Есть таблица рекордов, в которой сохраняются результаты предыдущих 10 игр
+
+[2/10] - Анимации или звуки, или настройки игры. Баллы начисляются за любой из перечисленных пунктов
+        (добавил парочку звуков, но не успел разобраться с организацией анимаций в игре, перемещение, сложение и тд.)
+
+[5/10] - Дополнительно
+- [+] Адаптивная верстка
+- [+] Отображение текущего и лучшего результатов в режиме реального времени
+- [+] Топ 3 результата за все игры в таблице результатов
+    `
+);
