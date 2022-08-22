@@ -1,0 +1,51 @@
+@import url(./fonts/fonts.css);
+
+/* Стили страницы */
+@import url(./blocks/page/page.css);
+@import url(./blocks/page/__settings/page__settings.css);
+
+/* Стили header */
+@import url(./blocks/header/__title/header__title.css);
+
+/* Стили videoplayer */
+@import url(./blocks/videoplayer/videoplayer.css);
+@import url(./blocks/videoplayer/__poster/videoplayer__poster.css);
+@import url(./blocks/videoplayer/__video/videoplayer__video.css);
+@import url(./blocks/videoplayer/__button/videoplayer__button.css);
+@import url(./blocks/videoplayer/__button/_type/videoplayer__button_type_play.css);
+@import url(./blocks/videoplayer/__button/_type/videoplayer__button_type_pause.css);
+@import url(./blocks/videoplayer/__controls/videoplayer__controls.css);
+@import url(./blocks/videoplayer/__progress-bar/videoplayer__progress-bar.css);
+@import url(./blocks/videoplayer/__controls-button/videoplayer__controls-button.css);
+@import url(./blocks/videoplayer/__controls-button/_type/videoplayer__controls-button_type_play.css);
+@import url(./blocks/videoplayer/__controls-button/_type/videoplayer__controls-button_type_pause.css);
+@import url(./blocks/videoplayer/__controls-button/_type/videoplayer__controls-button_type_volume.css);
+@import url(./blocks/videoplayer/__controls-button/_type/videoplayer__controls-button_type_mute.css);
+@import url(./blocks/videoplayer/__volume-reg/videoplayer__volume-reg.css);
+@import url(./blocks/videoplayer/__time/videoplayer__time.css);
+@import url(./blocks/videoplayer/__controls-button/_type/videoplayer__controls-button_type_fullscreen.css);
+@import url(./blocks/page/__hidden/page__hidden.css);
+
+/* Стили footer */
+@import url(./blocks/footer/__list-logo/footer__list-logo.css);
+@import url(./blocks/footer/__copyright/footer__copyright.css);
+@import url(./blocks/footer/__github/footer__github.css);
+@import url(./blocks/footer/__link/footer__link.css);
+@import url(./blocks/footer/__logo-cont/footer__logo-cont.css);
+@import url(./blocks/footer/__logo/footer__logo.css);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

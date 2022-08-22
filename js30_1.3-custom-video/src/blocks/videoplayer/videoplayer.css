@@ -1,0 +1,15 @@
+.videoplayer {
+  position: relative;
+  overflow: hidden;
+  transition: opacity 0.4s linear;
+}
+
+.videoplayer:hover .videoplayer__button_type_play{
+  transform: scale(1.2);
+}
+
+.videoplayer:hover .videoplayer__controls{
+  transform: translateY(-52px);
+}
+
+

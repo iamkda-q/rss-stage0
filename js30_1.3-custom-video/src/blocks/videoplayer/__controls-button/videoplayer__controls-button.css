@@ -1,0 +1,18 @@
+.videoplayer__controls-button {
+  border: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: 0;
+  padding: 0;
+  width: 70%;
+  height: 70%;
+  align-self: center;
+  justify-self: center;
+  transition: 0.2s linear;
+  cursor: pointer;
+}
+
+.videoplayer__controls-button:hover {
+  filter: brightness(2);
+}
