@@ -1,0 +1,14 @@
+.videoplayer__button {
+  border: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  transition: 0.4s linear;
+  cursor: pointer;
+}
+
+.videoplayer__button:hover {
+  filter: brightness(2);
+}
+
