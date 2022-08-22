@@ -1,0 +1,4 @@
+.popup_type_end-game {
+    width: calc(100px*4 + 10px*3 + 200px);
+    height: calc(100px*4 + 10px*3 + 200px);
+}

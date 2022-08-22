@@ -1,0 +1,11 @@
+.header {
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 7vh;
+  justify-items: center;
+  align-items: center;
+  border-bottom: 1px solid #0d1117;
+/*   margin-bottom: 10px; */
+}

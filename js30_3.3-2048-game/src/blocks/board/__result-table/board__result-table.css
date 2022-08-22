@@ -1,0 +1,9 @@
+.board__result-table {
+    display: grid;
+    grid-template-columns: repeat(1, max-content);
+    grid-template-rows: 20px;
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
+    gap: 8px;
+}

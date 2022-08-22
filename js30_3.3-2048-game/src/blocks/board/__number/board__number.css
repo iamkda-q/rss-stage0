@@ -1,0 +1,69 @@
+.board__number {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    background-color: #FFF8DC;
+    border: 1px red solid;
+    transition: 0.1s linear;
+}
+
+.board__number[data-number="2"] {
+    background-color: #FFEBCD;
+}
+
+.board__number[data-number="4"] {
+    background-color: #F4A460;
+}
+
+.board__number[data-number="8"] {
+    background-color: #FFDEAD;
+}
+
+.board__number[data-number="16"] {
+    background-color: #DEB887;
+}
+
+.board__number[data-number="32"] {
+    background-color: #BC8F8F;
+}
+
+.board__number[data-number="64"] {
+    background-color: #e27e26;
+}
+
+.board__number[data-number="128"] {
+    background-color: #DAA520;
+}
+
+.board__number[data-number="256"] {
+    background-color: #B8860B;
+}
+
+.board__number[data-number="512"] {
+    background-color: #D2691E;
+}
+
+.board__number[data-number="1024"] {
+    background-color: #8B4513;
+}
+
+.board__number[data-number="2048"] {
+    background-color: #FF0000;
+}
+
+.board__number[data-number="4096"] {
+    background-color: #8B4513;
+}
+
+.board__number[data-number="8192"] {
+    background-color: #800000;
+}
+
+
+
+
