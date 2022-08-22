@@ -1,0 +1,19 @@
+.search__input {
+    border: none;
+    border-radius: 3px;
+    width: 100%;
+    outline: none;
+    line-height: 1.2;
+    font-size: var(--font-size);
+    padding: var(--padding);
+    box-shadow: #000 0 0 3px 0px;
+}
+
+.search__input::placeholder {
+    opacity: 0;
+    transition: opacity 0.3s linear;
+}
+
+.search__input:focus::placeholder {
+    opacity: 1;
+}

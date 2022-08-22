@@ -1,0 +1,17 @@
+.header {
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  grid-template-rows: 64px;
+  justify-items: end;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 20px;
+  border-bottom: 1px solid white;
+  margin-bottom: 30px;
+}
+
+.header_light {
+  border-bottom: 1px solid #0d1117;
+}

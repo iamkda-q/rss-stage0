@@ -1,0 +1,46 @@
+.buttons__button {
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: bold;
+    background-color: white;
+    z-index: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s linear, visibility 0.3s linear,
+        transform 0.3s linear;
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.buttons__button:hover {
+    box-shadow: 0px 0px 6px 3px blueviolet;
+}
+
+.buttons__button:active {
+    transform: scale(-0.8, 0.8) rotateY(180deg);
+    transition: transform 0s;
+}
+
+.buttons__button:last-of-type {
+    grid-area: button2;
+    border-top-right-radius: 60px;
+    transform: translateY(-20px);
+}
+
+.buttons__button:first-of-type {
+    grid-area: button1;
+    border-bottom-right-radius: 60px;
+    transform: translateY(20px);
+}
+
+.buttons__button:last-of-type > .buttons__text {
+    align-self: flex-end;
+}
+.buttons__wrapper:first-of-type > .buttons__text {
+    align-self: flex-end;
+}

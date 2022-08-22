@@ -1,0 +1,5 @@
+.videoplayer__controls-button_type_play {
+  grid-area: play;
+  background-image: url("../../../../../assets/images/play.svg");
+  justify-self: right;
+}

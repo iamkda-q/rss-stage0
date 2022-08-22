@@ -1,0 +1,9 @@
+.videoplayer__controls-button_type_fullscreen {
+  grid-area: fullscreen;
+  background-image: url(../../../../../assets/images/fullscreen.png);
+  transition: transform 0.4s linear;
+}
+
+.videoplayer__controls-button_type_fullscreen:hover {
+  transform: scale(1.2);
+}
