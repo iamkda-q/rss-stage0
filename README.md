@@ -2,7 +2,7 @@
 ## 2048 (игра)
 ### Описание:
 При помощи HTML, CSS и JavaScript реализовано приложение функционально повторяющее любимую мной игру 2048.
-### [Ссылка на проект](https://github.com/iamkda-q/rss-stage0/tree/js30_3.3-2048-game)
+### [Ссылка на проект](https://github.com/iamkda-q/rss-stage0/tree/js30%233.3-random-game)
 ### Функционал:
 + интерфейс игры:
   - кнопка начала новой игры;
@@ -27,7 +27,7 @@
 ## Custom VideoPlayer
 ### Описание:
 При помощи HTML, CSS и JavaScript реализован плеер, дизайн и работа которого отвечает требованиям задания.
-### [Ссылка на проект](https://github.com/iamkda-q/rss-stage0/tree/js30_1.3-custom-video):
+### [Ссылка на проект](https://github.com/iamkda-q/rss-stage0/tree/js30%231.3-custom-video):
 ### Функционал:
 + кастомная кнопка play/pause:
   - на панели управления и в центре видео;
@@ -44,7 +44,7 @@
 ## Галерея изображений
 ### Описание:
 При помощи HTML, CSS (БЭМ-структура) и JavaScript реализовано приложение по поиску фотографий, взаимодействующее с Unsplash API.
-### [Ссылка на проект](https://github.com/iamkda-q/rss-stage0/tree/js30_2.2-image-galery):
+### [Ссылка на проект](https://github.com/iamkda-q/rss-stage0/tree/js30%232.2-image-galery):
 ### Функционал:
 + взаимодействие с Unsplash API:
   - при загрузке приложения на странице отображаются полученные от API изображения;
