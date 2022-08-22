@@ -1,0 +1,10 @@
+.header__logo {
+    width: 100%;
+    background-image: url(../../../images/unsplash_dark.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.header__logo_light {
+    background-image: url(../../../images/unsplash.png);
+}
